@@ -1,0 +1,19 @@
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer; /* Указатель при наведении */
+    &:hover {
+        background-color: blue($color: #000000);
+    }
+  }
+  
+//   .suggestion-item:hover {
+//     background-color: #f0f0f0; /* Цвет фона при наведении */
+//   }
+
+.ol__popup {
+  background-color: white ;
+
+  padding: 10px; /* Отступ */
+  border-radius: 5px; /* Закругленные углы */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Тень */
+}

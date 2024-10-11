@@ -1,0 +1,55 @@
+.footer {
+  font-family: "Wix Madefor Display", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--background-dark);
+  height: 200px;
+  padding: 24px 80px;
+  border-top: 1px solid var(--background-dark);
+  color: var(--background-light);
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: start;
+    text-align: left;
+
+    &_title {
+      margin: 0;
+      line-height: 24px;
+    }
+
+    &_text {
+      margin: 0;
+      line-height: 24px;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+
+    &_item {
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--background-light);
+      padding: 8px 0;
+
+      &:hover {
+        text-decoration: none;
+        color: transparent; /* делаем текст прозрачным */
+        background: var(--gradient);
+        background-clip: text; /* применяем градиент к тексту */
+        cursor: pointer;
+      }
+    }
+  }
+}

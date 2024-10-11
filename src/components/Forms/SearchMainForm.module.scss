@@ -1,0 +1,112 @@
+
+    .form {
+      display: flex;
+      width: 80%;
+      justify-content: space-between;
+      
+      &__button {
+        // width: 224px;
+        height: 64px;
+        font-size: 24px;
+        // font-weight: 600;
+  
+        line-height: 32px;
+        background-color: var(--accent-blue);
+        color: var(--white);
+        cursor: pointer;
+        border: none;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        transition: all 1s ease-out;
+        // width: 198px;
+      // width: 25%;
+   
+  
+      font-weight: normal;
+      background-color: #ff9d00;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 194, 0, 1) 0%,
+        rgba(254, 174, 0, 1) 33%,
+        rgba(251, 122, 0, 1) 66%,
+        rgba(243, 102, 0, 1) 100%
+      );
+      // cursor: pointer;
+      // border: none;
+      // border-top-right-radius: 20px;
+      // border-bottom-right-radius: 20px;
+      // transition: all 1s ease-out;
+  
+      &:hover {
+  
+        background: linear-gradient(
+          90deg,
+          rgba(243, 102, 0, 1) 0%,
+          rgba(251, 122, 0, 1) 33%,
+          rgba(254, 174, 0, 1) 66%,
+          rgba(255, 194, 0, 1) 100%
+        );
+      } 
+
+        & a {
+          text-decoration: none;
+          color: var(--white);
+        }
+  
+        // &:hover {
+        //   background: var(--gradient);
+        // }
+      }
+    
+  .form__searchBlock {
+    width: auto;
+    max-width: 25%;
+    height: 64px;
+    // height: auto;
+    position: relative;
+    background-color: var(--bright-yellow);
+    border-right: 4px solid var(--white);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    // gap: 50px;
+
+    flex-direction: column;
+  }
+    // .form__button {
+      // // width: 198px;
+      // // width: 25%;
+      // height: 64px;
+      // font-size: 24px;
+      // font-weight: normal;
+      // background-color: #ff9d00;
+      // background: linear-gradient(
+      //   90deg,
+      //   rgba(255, 194, 0, 1) 0%,
+      //   rgba(254, 174, 0, 1) 33%,
+      //   rgba(251, 122, 0, 1) 66%,
+      //   rgba(243, 102, 0, 1) 100%
+      // );
+      // cursor: pointer;
+      // border: none;
+      // border-top-right-radius: 20px;
+      // border-bottom-right-radius: 20px;
+      // transition: all 1s ease-out;
+  
+      // &:hover {
+  
+      //   background: linear-gradient(
+      //     90deg,
+      //     rgba(243, 102, 0, 1) 0%,
+      //     rgba(251, 122, 0, 1) 33%,
+      //     rgba(254, 174, 0, 1) 66%,
+      //     rgba(255, 194, 0, 1) 100%
+      //   );
+      // }
+    // }
+  }
+  .form > * {
+    flex: 1 1 224px; /* Гибкий рост, гибкое сжатие, базовая ширина */
+    min-width: 0; /* Позволяет элементам сжиматься меньше их содержимого */
+  }
+  

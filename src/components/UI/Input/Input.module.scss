@@ -1,0 +1,83 @@
+@import "../../../styles/_mixins.scss";
+
+.searchBlock {
+  // width: 224px;
+  width: auto;
+  max-width: 224px;
+  height: 64px;
+  // height: auto;
+  position: relative;
+  background-color: var(--bright-yellow);
+  border-right: 4px solid var(--white);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  // gap: 50px;
+  
+  flex-direction: column;
+
+  &:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+}  
+  .input {
+    outline: none;
+    padding-left: 16px;
+    border: none;
+    background-color: transparent;
+    // width: 170px;
+    width: 90%;
+    height: 62px;
+    font-size: 20px;
+    color: var(--dark-Blue);
+    position: relative;
+
+    &::placeholder {
+      color: var(--dark-Blue);
+      font-size: 20px;
+    }
+
+    &:hover::before {
+      content: attr(title);
+      position: absolute;
+      background-color: #fff;
+      padding: 5px;
+      border: 1px solid #ddd;
+      cursor: text;
+      z-index: 1;
+    }
+  }
+
+  .clear {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+  }
+
+
+.inputError {
+  @include input-error;
+}
+
+
+.sportItem__child {
+  border: 1px solid grey;
+  display: flex;
+  justify-content: safe;
+  align-items: flex-start;
+  min-height: 50px;
+  flex-wrap: wrap;
+  height: fit-content;
+}

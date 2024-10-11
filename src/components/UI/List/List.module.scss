@@ -1,0 +1,47 @@
+.list {
+  position: absolute;
+  top: 65px;
+  left: 0;
+  background-color: #d9d9d9;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  cursor: pointer;
+
+  &__item {
+    width: 219px;
+    margin: 0;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 200px 19px 215px;
+    align-items: start;
+    justify-content: space-between;
+
+    &:hover {
+      background-color: #eaeaea;
+    }
+  }
+
+  &__btn {
+    cursor: pointer;
+    border: none;
+    background-color: #d9d9d9;
+
+    &:hover {
+      background-color: #eaeaea;
+    }
+  }
+
+  &__sublist {
+    margin: 0;
+    padding-left: 15px;
+    list-style: none;
+    cursor: pointer;
+    background-color: #d9d9d9;
+    width: 215px;
+
+    &_item:hover {
+      background-color: #eaeaea;
+    }
+  }
+}

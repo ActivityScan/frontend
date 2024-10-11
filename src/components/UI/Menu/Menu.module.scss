@@ -1,0 +1,121 @@
+.menu, .submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px; /* Установите нужную высоту для списка */
+    // overflow-y: auto; 
+    // direction: rtl;
+    // // scrollbar-width: thin;
+    // scrollbar-color: #777575 #f1f1f1;
+    cursor: pointer;
+}
+
+
+.menu {
+    position: relative;
+    width: auto;
+    // list-style: none;
+    // padding: 0;
+    // margin: 0;
+    // max-height: 300px; /* Установите нужную высоту для списка */
+    // overflow-y: auto; 
+    // direction: rtl;
+    // // scrollbar-width: thin;
+    // scrollbar-color: #777575 #f1f1f1;
+    // cursor: pointer;
+    // position: absolute;
+    // top: 100%;
+    // left: 0;
+    // width: 100%;
+    // background: $bright-yellow;
+    // border: 1px solid #ccc;
+    // border-radius: 4px;
+    // z-index: 1000;
+    // display: none;
+  
+    // &.open {
+    //   display: block;
+    // }
+  
+    // &__menu {
+    //   list-style: none;
+    //   padding: 0;
+    //   margin: 0;
+    //   max-height: 300px; /* Установите нужную высоту для списка */
+    //   overflow-y: auto; 
+    //   direction: rtl;
+    //   // scrollbar-width: thin;
+    //   scrollbar-color: #777575 #f1f1f1;
+    // }
+    &__item,
+    &__subitem {
+      width: 100%;
+      padding: 8px;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      position: relative;
+      &:hover {
+        background-color: #f0f0f0;
+      }
+      .itemContent {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+          
+      .itemText {
+        white-space: wrap;
+        flex-grow: 1;
+      }
+
+      &__arrow {
+        margin-left: 5%;
+      } 
+      
+    }
+    &__subitem {
+      display: flex;
+      justify-content: space-between;
+    } 
+    
+}
+.submenu {
+    list-style: none;
+    padding-left: 20px;
+    position: absolute;
+    left: 110%; /* Подменю будет справа от основного меню */
+    top: 186%;
+    // cursor: pointer;
+    // top: 100px;
+    overflow-y: auto;
+    direction: rtl;
+    scrollbar-color: #777575 #f1f1f1;
+    background-color: aquamarine;
+    height: fit-content;
+    max-height: 500px;
+    // width: 100%;
+    // width: inherit;
+    overflow-x: hidden;
+    min-width: 170%
+}
+
+.selected {
+    font-weight: bold;
+}
+
+.checkbox {
+  accent-color: aquamarine; 
+} 
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.hovered {
+  text-decoration: line-through; // Зачеркивание
+  opacity: 0.6; // Уменьшенная непрозрачность (опционально)
+  cursor: pointer;
+}

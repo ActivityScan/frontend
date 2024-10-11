@@ -1,0 +1,120 @@
+.container {
+  background-color: #f1f1f1;
+  width: 320px;
+  margin-left: -100px;
+  text-align: center;
+
+  .content {
+    display: flex;
+    justify-content: space-evenly;
+
+    &_active {
+      background-color: #eaeaea;
+      cursor: pointer;
+      width: 50%;
+      position: relative;
+    }
+
+    &_inactive {
+      cursor: pointer;
+      width: 50%;
+      opacity: 0.8;
+    }
+
+    &__left {
+      background-color: #eaeaea;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      top: 19px;
+      left: 0;
+      width: 320px;
+      height: max-content;
+      padding-bottom: 100px;
+
+      &_input {
+        width: 52px;
+        height: 24px;
+        font-size: 16px;
+      }
+
+      &_category {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &_item {
+          display: flex;
+          gap: 16px;
+        }
+      }
+
+      &_radio {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      &_services {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    &__right {
+      background-color: #eaeaea;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      top: 19px;
+      right: 0;
+      width: 320px;
+      height: max-content;
+      padding-bottom: 100px;
+      align-items: center;
+
+      &_input {
+        width: 52px;
+        height: 24px;
+        font-size: 16px;
+      }
+
+      &_red_hat {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &_item {
+          display: flex;
+          gap: 16px;
+          justify-content: start;
+        }
+      }
+
+      &_radio {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      &_services {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .content__reset_btn {
+      width: 242px;
+      height: 52px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

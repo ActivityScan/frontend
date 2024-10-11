@@ -1,0 +1,17 @@
+.employee {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__name,
+  &__category,
+  &__experience {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  &__category,
+  &__experience {
+    font-style: italic;
+  }
+}

@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400..800&display=swap");
+
+:root {
+  font-family: "Wix Madefor Display", sans-serif;
+  font-weight: 400;
+  --dark-blue: #041129;
+  --white: #ffffff;
+  --accent-blue: #023d67;
+  --background-dark: #0c224c;
+  --background-light: #fcfaf9;
+  --bright-yellow: #fdf89d;
+  --gradient: linear-gradient(
+    90deg,
+    rgba(253, 248, 157, 1) 30%,
+    rgba(249, 115, 4, 1) 100%
+  );
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.main {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+ background-color: var(--background-light);
+
+  gap: 20px;
+  flex: 1;
+}
