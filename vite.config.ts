@@ -29,6 +29,9 @@ export default defineConfig({
     },
   },
   
+  build: {
+    sourcemap: true, // Включение карт кода в режиме сборки
+  },
   
   resolve: {
     alias: {

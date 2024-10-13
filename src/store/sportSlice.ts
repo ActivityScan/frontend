@@ -8,6 +8,7 @@ export const initialState: SportsState = {
   suggestions: [],
   // selectAllSports:{}
   isAllParentSportsSelected:false,
+  // loading: false,
 };
 
 const sportSlice = createSlice({
@@ -48,7 +49,9 @@ const sportSlice = createSlice({
     //   state.selectedSubSport = action.payload;
     // },
     selectAllSports: (state, action: PayloadAction<{ parentSport: string, sports: string[] }>) => {
-      const { parentSport, sports } = action.payload;
+      const { 
+        // parentSport,
+         sports } = action.payload;
 
       sports.forEach(sport => {
         if (!state.selectedSports.includes(sport)) {

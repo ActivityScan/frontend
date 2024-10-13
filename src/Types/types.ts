@@ -1,17 +1,17 @@
-import { ClubsType } from '@/Types/types';
-import { OptionTypeBase } from 'react-select';
+import { ClubsType } from "@/Types/types";
+import { OptionTypeBase } from "react-select";
 // import { formResolver } from './../utils/getValidationSchema';
-import { Resolver } from 'react-hook-form';
-import { validateAddress } from './../utils/validateAdress';
+import { Resolver } from "react-hook-form";
+import { validateAddress } from "./../utils/validateAdress";
 
 // import { Suggestion } from './types';
 // import { selectAllSports } from '@/store/sportSlice';
-import { Control, RegisterOptions, useController } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from '@/utils/getValidationSchema';
-import React from 'react';
-import { Schema } from 'yup';
-import { RootState } from '@/store';
+import { Control, RegisterOptions, useController } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "@/utils/getValidationSchema";
+import React from "react";
+import { Schema } from "yup";
+import { RootState } from "@/store";
 
 export type Input = {
   title: string;
@@ -22,7 +22,6 @@ export type Input = {
   setSearchValue: (value: string) => void;
   onChangeSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
-
 
 export type List = {
   id: string;
@@ -42,22 +41,22 @@ export interface Sports {
 }
 export interface FormValues {
   name?: string | undefined;
-  sports?: string ;
-  age?: number ;
+  sports?: string;
+  age?: number;
   address?: string;
   modeWork?: string | [string];
   handleSubmit?: () => void;
-  weekdayTimes?: string[]
+  weekdayTimes?: string[];
 }
 
 export interface InputFieldProps {
   id?: string | undefined;
-  name?: string; 
+  name?: string;
   control?: Control<any>; // Замените 'any' на тип вашей формы
   rules?: RegisterOptions;
   placeholder?: string;
   type?: string;
-  value?: string | [string] | undefined
+  value?: string | [string] | undefined;
   readOnly?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -72,7 +71,6 @@ export interface InputFieldProps {
   validateAddress?: (value: string) => true | string;
   onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   // select?: boolean;
-
 }
 
 export interface ButtonProps {
@@ -85,26 +83,36 @@ export interface ButtonProps {
 // declare module 'react-autosuggest' {
 //   import * as React from 'react';
 
-  // export interface Suggestion {
-  //   name: string;
-  // }
+// export interface Suggestion {
+//   name: string;
+// }
 
-  // export interface SuggestProps {
-  //   suggestions: Suggestion[];
-  //   onSuggestionsFetchRequested: (params: { value: string }) => void;
-  //   onSuggestionsClearRequested: () => void;
-  //   getSuggestionValue: (suggestion: Suggestion) => string;
-  //   renderSuggestion: (suggestion: Suggestion) => React.ReactNode;
-  //   inputProps: {
-  //     placeholder: string;
-  //     value: string;
-  //     onChange: (event: React.ChangeEvent<HTMLInputElement>, params: {
-  //       newValue: string;
-  //   }) => void;
-  //   };
-  // }
+export interface SuggestProps {
+  suggestions: Suggestion[];
+  onSuggestionsFetchRequested: (params: { value: string }) => void;
+  onSuggestionsClearRequested: () => void;
+  getSuggestionValue: (suggestion: Suggestion) => string;
+  renderSuggestion: (suggestion: Suggestion) => React.ReactNode;
+  inputProps: {
+    placeholder: string;
+    value: string;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>, params: {
+      newValue: string;
+  }) => void;
+  };
+}
 
-  // export default class Autosuggest extends React.Component<AutosuggestProps> {}
+
+// export default class Autosuggest extends React.Component<AutosuggestProps> {}
+ export interface Suggestion {
+    name: string;
+    organization: string;
+    city: string;
+    street: string;
+    housenumber: string;
+    coordinates: [number, number];
+    district: string
+  }
 
 
 export interface MenuProps {
@@ -112,17 +120,17 @@ export interface MenuProps {
   onHover: (item: string) => void;
   onClick: (item: string) => void;
   selectedItems?: string[];
-  // className?: string 
-  // onSelectAll: 
-  disabled?: boolean
+  // className?: string
+  // onSelectAll:
+  disabled?: boolean;
 }
 export interface SubMenuProps {
   items: string[];
   onClick: (item: string) => void;
   selectedItems?: string[];
   parentSport: string;
-  onSelectAll: (sport: string, items: string[]) => void; 
-  disabled?: boolean
+  onSelectAll: (sport: string, items: string[]) => void;
+  disabled?: boolean;
 }
 
 export interface SportsState {
@@ -130,7 +138,8 @@ export interface SportsState {
   allSportsSelected: boolean;
   hoveredSport: string | null;
   suggestions: string[];
-  isAllParentSportsSelected?:boolean
+  isAllParentSportsSelected?: boolean;
+  loading?: boolean;
 }
 
 export interface Store {
@@ -138,35 +147,37 @@ export interface Store {
   search: SearchState;
 }
 
-
 export interface SearchState {
-  modeWork: 'any' | 'weekdays' | 'saturday' | 'sunday' | 'all' | 'none';
+  modeWork?: "any" | "weekdays" | "saturday" | "sunday" | "all" | "none";
   // modeWork: string[] | string;
   weekdayTimes: string[];
-  sport: string[];
-  age: string | undefined;
-  address: string;
-  clubs:ClubsType;
-  status: 'idle' | 'loading' | 'failed' | 'succeeded';
+  // sport: string[];
+  age?: string | undefined;
+  address?: string;
+  clubs: ClubsType;
+  status: "idle" | "loading" | "failed" | "succeeded";
   error: string | null;
-  // options: 
+  loading?: boolean;
+  // options:
+  longitude?: string | number;
+  latitude?: string | number;
+  sport?: string[] | string;
 }
 
-export type OptionType = { 
-  value: SearchState; 
-  label: string
+export type OptionType = {
+  value: SearchState;
+  label: string;
   isDisabled?: boolean;
   // | { value: string; label: string }
   // | { value: string; label: string; options: OptionType[] };
-
- };
+};
 
 // export interface ValidateValues {
 //   handleSubmit?: () => void;
 //   sports?: [string];
 //   modeWork?: string | [string];
 //   age?: number ;
-//   address?: string; 
+//   address?: string;
 //   weekdayTimes?: string[]
 //   formResolver?: (string | undefined)[];
 // }
@@ -177,9 +188,10 @@ export interface ValidateValues {
   modeWork?: (string | undefined)[];
   sports?: (string | undefined)[];
   sportNames?: string[];
-  selectedSports?: SportsState['selectedSports'];
+  selectedSports?: SportsState["selectedSports"];
+  longitude?: string | number;
+  latitude?: string | number;
 }
-
 
 // export const formResolver: Resolver<ValidateValues, any> = yupResolver(schema);
 
@@ -251,9 +263,9 @@ export interface Club {
   longitude: number;
   latitude: number;
   phoneNumbers: PhoneNumber[];
-  status: string,
-  error: null | string,
-  loading?: boolean
+  status: string;
+  error: null | string;
+  loading?: boolean;
 }
 
 // Тип для массива клубов
@@ -264,10 +276,10 @@ export type ClubsType = Club[];
 // }
 
 export interface ClubInitialState {
-  data: Club | null,
-  loading: boolean,
-  error: null | string,
-  status: 'idle' | 'loading' | 'succeeded' | 'failed'
+  data: Club | null;
+  loading: boolean;
+  error: null | string;
+  status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 export interface AsyncThunkConfig {

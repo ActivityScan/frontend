@@ -1,20 +1,20 @@
-@import '@/styles/_colors.scss';
+@import "@/styles/_colors.scss";
 
 .button {
-    width: 100%;
-    padding: 8px;
-    // background: none;
-     background-color: $dark-blue-button;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    letter-spacing: 0em;
-    // color: $orange-gradient;
-    margin: 0px 10px 0px 0px;
-    min-width: max-content;
+  width: 100%;
+  padding: 8px;
+  background-color: transparent;
+  border-radius: 32px;
+  border: 1px solid var(--accent-blue);
+  background: var(--white);
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: 0em;
+  margin: 0px 10px 0px 0px;
+  min-width: max-content;
 
-    &:hover {
-        background-color: $light-grey;
-        width: 100%;
-    }
+  &:hover {
+    background-color: $light-grey;
+    width: 100%;
+  }
 }

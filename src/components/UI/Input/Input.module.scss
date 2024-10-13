@@ -1,4 +1,6 @@
-@import "../../../styles/_mixins.scss";
+@import "@/styles/_mixins.scss";
+@import "@/styles/_colors.scss";
+@import "@/styles/_base.scss";
 
 .searchBlock {
   // width: 224px;
@@ -13,7 +15,7 @@
   align-items: center;
   gap: 5px;
   // gap: 50px;
-  
+
   flex-direction: column;
 
   &:first-child {
@@ -31,53 +33,77 @@
     display: flex;
     flex-direction: column;
   }
-}  
-  .input {
-    outline: none;
-    padding-left: 16px;
-    border: none;
-    background-color: transparent;
-    // width: 170px;
-    width: 90%;
-    height: 62px;
-    font-size: 20px;
-    color: var(--dark-Blue);
-    position: relative;
+}
+.input {
+  outline: none;
+  padding-left: 16px;
+  border: none;
+  background-color: transparent;
+  // width: 170px;
+  width: 90%;
+  height: 62px;
+  // font-size: 24px;
+  color: $dark-blue;
+  position: relative;
 
+  &[type="number"]::-webkit-outer-spin-button,
+  &[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Убираем стрелки для Firefox */
+  &[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  &:hover {
+    font-weight: 600;
+  }
+
+  // &::placeholder { @extend .input-font};
+
+  &::placeholder {
+    @extend .input-font;
+  }
+
+  &:hover::before {
+    content: attr(title);
+    position: absolute;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ddd;
+    cursor: text;
+    z-index: 1;
+  }
+
+  &:focus {
+    background-color: $orange-pastel;
     &::placeholder {
-      color: var(--dark-Blue);
-      font-size: 20px;
-    }
-
-    &:hover::before {
-      content: attr(title);
-      position: absolute;
-      background-color: #fff;
-      padding: 5px;
-      border: 1px solid #ddd;
-      cursor: text;
-      z-index: 1;
+      text-align: left;
     }
   }
+}
 
-  .clear {
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-  }
-
+.clear {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
 
 .inputError {
   @include input-error;
 }
 
-
 .sportItem__child {
-  border: 1px solid grey;
+  border: 1px solid #d8e1e7;
   display: flex;
-  justify-content: safe;
   align-items: flex-start;
   min-height: 50px;
   flex-wrap: wrap;
   height: fit-content;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  cursor: text;
 }

@@ -1,5 +1,5 @@
 // src/components/SportSelector.tsx
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
   removeSport,
@@ -13,9 +13,9 @@ import styles from "./SportDropdown.module.scss";
 // import { Sports } from '../../Types/types';
 import { sports } from "@/mocks";
 // import styles from "../UI/Input/Input.module.scss";
-import InputBar from "../UI/Input/InputBar";
-import InputItem from "../UI/Input/Input";
-import { Control } from "ol/control";
+// import InputBar from "../UI/Input/InputBar";
+// import InputItem from "../UI/Input/Input";
+// import { Control } from "ol/control";
 import { InputFieldProps } from "@/Types/types";
 import DropdownButton from "../UI/Buttons/DropdownButton/DropDownButton";
 import Menu from "../UI/Menu/Menu";
@@ -59,23 +59,21 @@ const SportSelector: React.FC<InputFieldProps> = ({
     dispatch(toggleAllSports());
   };
 
-  const handleSearch = (query: string) => {
-    const filteredSuggestions = allSportsList.filter((sport) =>
-      sport.toLowerCase().includes(query.toLowerCase())
-    );
-    dispatch(setSuggestions(filteredSuggestions));
-    return filteredSuggestions;
-  };
+  // const handleSearch = (query: string) => {
+  //   const filteredSuggestions = allSportsList.filter((sport) =>
+  //     sport.toLowerCase().includes(query.toLowerCase())
+  //   );
+  //   dispatch(setSuggestions(filteredSuggestions));
+  //   return filteredSuggestions;
+  // };
 
-  const handleRemoveSport = (sport: string) => {
-    dispatch(removeSport(sport));
-  };
-  // console.log(hoveredSportOnInput);
+  // const handleRemoveSport = (sport: string) => {
+  //   dispatch(removeSport(sport));
+  // };
+  // // console.log(hoveredSportOnInput);
 
   const getDisplayTextWithHover = () => {
-    
     return selectedSports.map((sport: string, index: number) => (
-      
       <div
         key={index}
         className={`${hoveredSportOnInput === sport ? styles.hovered : ""} ${
@@ -108,9 +106,8 @@ const SportSelector: React.FC<InputFieldProps> = ({
     };
   }, [dispatch]);
 
-
   // console.log(allSportsSelected);
- console.log(selectedSports)
+  console.log(selectedSports);
   const handleSelectAll = (parentSport: string) => {
     const sportsToAdd = sports[parentSport] || [];
     dispatch(selectAllSports({ parentSport, sports: sportsToAdd }));
@@ -118,7 +115,9 @@ const SportSelector: React.FC<InputFieldProps> = ({
 
   return (
     <div className={styles.container} ref={selectorRef}>
-      <div className={styles.sportSelector}>
+      <div
+        className={isOpen ? styles.sportSelectorActive : styles.sportSelector}
+      >
         {/* <div> */}
         <label htmlFor="sport-input" onClick={() => setIsOpen(!isOpen)}>
           {displaySportSelectorText}

@@ -1,6 +1,6 @@
 import {  ClubInitialState } from '@/Types/types';
 import { fetchClubInfoById } from '@/utils/api';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export // Initial state for the specific club data slice
 

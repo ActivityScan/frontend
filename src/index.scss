@@ -9,11 +9,23 @@
   --background-dark: #0c224c;
   --background-light: #fcfaf9;
   --bright-yellow: #fdf89d;
+  --orange-pastel: #fddf9d;
+  --hover: #f1f1f1;
+  --header-button: #adcde5;
+  --header-button-hover: linear-gradient(
+    90deg,
+    rgba(170, 169, 169, 1) 0%,
+    rgba(213, 213, 213, 1) 100%
+  );
   --gradient: linear-gradient(
     90deg,
     rgba(253, 248, 157, 1) 30%,
     rgba(249, 115, 4, 1) 100%
   );
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 #root {

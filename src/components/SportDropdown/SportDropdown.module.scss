@@ -1,24 +1,27 @@
-@import '@/styles/_colors.scss';
+@import "@/styles/_colors.scss";
+@import "@/styles/_base.scss";
 
 .inputContainer {
-  width: 1000px;
-  position: relative;
-  top: 30%;
-  left: 190%;
-  // height: 50px;
+  width: 80vw;
+  position: absolute;
+  top: 63px;
+  left: 0;
   white-space: nowrap;
   // overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .container {
   width: 25%;
   max-width: 224px;
+  position: relative;
 }
+
 .sportSelector {
   position: relative;
-    // width: 100%;
+  // width: 100%;
   width: auto;
-    // width: 224px;
+  // width: 224px;
   // max-width: 224px;
   height: 64px;
   position: relative;
@@ -27,172 +30,229 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px; 
-    &:first-child {
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        padding-left: 16px;
-        font-size: 20px;
-    }
+  gap: 5px;
+  color: var(--dark-Blue);
+  font-weight: 400;
+  cursor: pointer;
+ 
 
-    &__input {
-      width: 1000px;
-      padding: 8px;
-      margin-bottom: 10px;
-      // border: 1px solid #ccc;
-      // border-radius: 4px;
-      border: 1px solid grey
-      // white-space: nowrap;
-      // overflow: hidden;
-      // text-overflow: ellipsis;
-    }
+  &:hover {
+    font-weight: 600;
   }
-  
-  .selectedSports {
+
+  &:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-left: 16px;
+    font-size: 20px;
+  }
+
+  &__input {
+    width: 1000px;
+    padding: 8px;
     margin-bottom: 10px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  
-        outline: none;
-        padding-left: 16px;
-        border: none;
-        background-color: transparent;
-        width: 170px;
-        height: 62px;
-        font-size: 20px;
-        color: var(--dark-Blue);
-        position: relative;
-    
-        // &::placeholder {
-        //   color: var(--dark-Blue);
-        //   font-size: 20px;
-        // }
-    
-        // &:hover::before {
-        //   content: attr(title);
-        //   position: absolute;
-        //   background-color: #fff;
-        //   padding: 5px;
-        //   border: 1px solid #ddd;
-        //   cursor: text;
-        //   z-index: 1;
-        // }
+    // border: 1px solid #ccc;
+    // border-radius: 4px;
+    border: 1px solid grey;
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
   }
-  
-  label {
-    width: 100%;
-    // margin: auto;
-    margin-top: 20px;
-    white-space: nowrap; // Текст не переносится на новую строку
-    overflow: clip;
-    text-overflow: ellipsis;; // Добавляем многоточие
+}
+
+.sportSelectorActive {
+  position: relative;
+  // width: 100%;
+  width: auto;
+  // width: 224px;
+  // max-width: 224px;
+  height: 64px;
+  position: relative;
+  background-color: var(--orange-pastel);
+  border-right: 4px solid var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  cursor: pointer;
+
+  &:first-child {
+    border-top-left-radius: 20px;
+    padding-left: 16px;
+    font-size: 20px;
   }
 
-  .selectedSport {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  &__input {
+    width: 1000px;
+    padding: 8px;
+    margin-bottom: 10px;
+    // border: 1px solid #ccc;
+    // border-radius: 4px;
+    border: 1px solid grey;
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
   }
-  
+}
 
-  // .sportSelector__input {
-  //   // width: 100%;
-  //   // width: 1000px;
-  //   padding: 8px;
-  //   margin-bottom: 10px;
-  //   // border: 1px solid #ccc;
-  //   // border-radius: 4px;
-  //   border: 1px solid grey
+.selectedSports {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  outline: none;
+  padding-left: 16px;
+  border: none;
+  background-color: transparent;
+  width: 170px;
+  height: 62px;
+  font-size: 20px;
+  color: var(--dark-Blue);
+  position: relative;
+
+  // &::placeholder {
+  //   color: var(--dark-Blue);
+  //   font-size: 20px;
   // }
-  
-  .dropdown {
-    position: relative;
-    top: 21%;
-    // top: 100%;
-    left: 0;
-    width: 100%;
-    background: $bright-yellow;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    z-index: 1000;
-    display: none;
-  
-    &.open {
-      display: block;
-    }
-  
-    &__menu {
-      list-style: none;
-      padding-left: 15px;
-      margin: 0;
-      max-height: 300px; /* Установите нужную высоту для списка */
-      overflow-y: auto; 
-      overflow-x: hidden;
-      direction: rtl;
-      // scrollbar-width: thin;
-      scrollbar-color: #777575 #f1f1f1;
-    }
-   
-    &__item,
-    &__subitem {
-      width: 100%;
-      padding: 8px;
-      background: none;
-      border: none;
-      text-align: left;
-      cursor: pointer;
-  
-      &:hover {
-        background-color: #f0f0f0;
-      }
-    }
-  
-    &__submenu {
-      list-style: none;
-      padding-left: 20px;
-      position: absolute;
-      left: 100%; /* Подменю будет справа от основного меню */
-      // top: 0;
-      top: inherit;
-    }
-   
-  }
-  .searchBlock {
-    // width: 224px;
-    width: auto;
-    max-width: 224px;
-    height: 64px;
-    // height: auto;
-    position: relative;
-    background-color: var(--bright-yellow);
-    border-right: 4px solid var(--white);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    // gap: 50px;
-    // flex-direction: column;
-  }
-  // .submenu {
-  //   list-style: none;
-  //   padding-left: 20px;
+
+  // &:hover::before {
+  //   content: attr(title);
   //   position: absolute;
-  //   left: 100%; /* Подменю будет справа от основного меню */
-  //   top: 0;
+  //   background-color: #fff;
+  //   padding: 5px;
+  //   border: 1px solid #ddd;
+  //   cursor: text;
+  //   z-index: 1;
   // }
-  
-  .hovered {
-    text-decoration: line-through; // Зачеркивание
-    opacity: 0.6; // Уменьшенная непрозрачность (по желанию)
+}
+
+label {
+  width: 100%;
+  // margin: auto;
+  margin-top: 15px;
+  white-space: nowrap; // Текст не переносится на новую строку
+  overflow: clip;
+  text-overflow: ellipsis; // Добавляем многоточие
+  cursor: pointer;
+  user-select: none;
+  @extend .input-font;
+}
+
+.selectedSport {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+// .sportSelector__input {
+//   // width: 100%;
+//   // width: 1000px;
+//   padding: 8px;
+//   margin-bottom: 10px;
+//   // border: 1px solid #ccc;
+//   // border-radius: 4px;
+//   border: 1px solid grey
+// }
+
+.dropdown {
+  position: absolute;
+  top: 114px;
+  left: 0;
+  width: 309px;
+  background: var(--white);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 1000;
+  display: none;
+
+  &.open {
+    display: block;
   }
-  
-  .sportItem {
-    cursor: pointer; // Указатель при наведении
-    position: relative;
-    // top: -60%; //
-    width: fit-content;
-    border: solid;
-    margin: auto;
-    margin: 2px;
-    padding: 5px;
+
+  &__menu {
+    list-style: none;
+    padding-left: 26px;
+    padding-top: 16px;
+    margin: 0;
+    max-height: 300px; /* Установите нужную высоту для списка */
+    overflow-y: auto;
+    overflow-x: hidden;
+    direction: rtl;
+    scrollbar-color: $dark-blue-button #f1f1f1;
+    scrollbar-width: thin;
+   
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $dark-blue-button;
+      border-radius: 32px;
+    }
   }
+
+  &__item,
+  &__subitem {
+    width: 100%;
+    padding: 8px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  &__submenu {
+    list-style: none;
+    padding-left: 20px;
+    position: absolute;
+    left: 100%; /* Подменю будет справа от основного меню */
+    // top: 0;
+    top: inherit;
+  }
+}
+.searchBlock {
+  // width: 224px;
+  width: auto;
+  max-width: 224px;
+  height: 64px;
+  // height: auto;
+  position: relative;
+  background-color: var(--bright-yellow);
+  border-right: 4px solid var(--white);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  // gap: 50px;
+  // flex-direction: column;
+}
+// .submenu {
+//   list-style: none;
+//   padding-left: 20px;
+//   position: absolute;
+//   left: 100%; /* Подменю будет справа от основного меню */
+//   top: 0;
+// }
+
+.hovered {
+  text-decoration: line-through; // Зачеркивание
+  opacity: 0.6; // Уменьшенная непрозрачность (по желанию)
+}
+
+.sportItem {
+  cursor: pointer; // Указатель при наведении
+  position: relative;
+  // top: -60%; //
+  width: fit-content;
+  border: solid;
+  margin: auto;
+  margin: 2px;
+  padding: 5px;
+}

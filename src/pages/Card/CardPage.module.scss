@@ -2,6 +2,23 @@
   padding-left: 80px;
   padding-right: 90px;
   padding-top: 37px;
+  position: relative;
+
+  &__back_button {
+    position: fixed;
+    width: 100px;
+    height: 50px;
+    border: 1px solid #d8e1e7;
+    right: 3%;
+    bottom: 20%;
+    display: none;
+    cursor: pointer;
+    z-index: 10;
+
+    &.visible {
+      display: block;
+    }
+  }
 
   &__header {
     display: flex;
@@ -12,14 +29,16 @@
       flex-direction: column;
       gap: 16px;
 
-      .socials__items {
+      &_items {
         display: flex;
         gap: 16px;
         width: 305px;
 
         &_item {
           width: 30%;
-          background-color: #d9d9d9;
+          background-color: #fdf89d;
+          width: 89px;
+          height: 32px;
           padding: 4px;
           border: none;
           cursor: pointer;
@@ -34,11 +53,12 @@
       align-items: start;
       gap: 5px 20px;
 
-      .info__header {
+      &_name {
         display: flex;
-        grid-column: span 5;
-        justify-content: space-between;
-        align-items: center;
+        grid-column: span 3;
+        align-items: start;
+        gap: 12px;
+        text-align: left;
 
         &_title {
           margin: 0;
@@ -48,7 +68,22 @@
         }
       }
 
-      .info__address {
+      &_owner {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 5;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 24px;
+        text-align: left;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 5px;
+        color: var(--accent-blue);
+        cursor: pointer;
+      }
+
+      &_address {
         display: flex;
         gap: 35px;
         grid-column: span 3;
@@ -58,11 +93,24 @@
           margin: 0;
           font-size: 20px;
         }
+      }
+
+      &_transit {
+        display: flex;
+        align-items: center;
+        grid-column: span 3;
+        gap: 32px;
+
+        &_distance {
+          margin: 0;
+          grid-column: span 2;
+          text-align: left;
+        }
 
         &_metro {
           display: flex;
+          gap: 6px;
           align-items: center;
-          gap: 5px;
 
           &_name {
             margin: 0;
@@ -71,17 +119,17 @@
         }
       }
 
-      .info__time {
+      &_time {
         display: flex;
         gap: 18px;
         align-items: start;
-        grid-row-start: 3;
-        grid-row-end: 4;
+        grid-row-start: 4;
+        grid-row-end: 5;
         grid-column: span 3;
 
         &_title {
           margin: 0;
-          font-size: 20px;
+          font-size: 16px;
         }
 
         &_items {
@@ -90,39 +138,42 @@
 
           &_text {
             margin: 0;
-            font-size: 14px;
+            font-size: 16px;
           }
         }
       }
 
-      .info__description {
-        margin: 0;
-        grid-column: span 3;
-        justify-self: start;
-        grid-row-start: 4;
-        grid-row-end: 5;
-        font-size: 14px;
-        color: #fe0909;
-      }
+      // &_description {
+      //   margin: 0;
+      //   grid-column: span 3;
+      //   justify-self: start;
+      //   grid-row-start: 4;
+      //   grid-row-end: 5;
+      //   font-size: 14px;
+      //   color: #fe0909;
+      // }
 
-      .header__btn {
+      &_btn {
         grid-row-start: 5;
         grid-row-end: 6;
         justify-self: start;
         display: flex;
-        gap: 10px;
         align-items: center;
-        padding: 10px;
-        background-color: #d9d9d9;
-        border: none;
         cursor: pointer;
+        gap: 10px;
+        padding: 10px 20px;
+        background-color: #fdf89d;
+        border-radius: 8px;
+        width: 147px;
+        height: 40px;
+        border: none;
 
         & p {
           margin: 0;
         }
       }
 
-      .header__link {
+      &_link {
         grid-row-start: 6;
         grid-row-end: 7;
         grid-column: span 3;
@@ -134,24 +185,28 @@
         border: none;
         padding: 0;
         text-decoration: underline;
-        text-underline-offset: 3px;
-        color: #000;
+        text-decoration-style: dotted;
+        text-underline-offset: 5px;
+        color: var(--accent-blue);
       }
 
-      .info__block {
+      &_block {
         // width: 384px;
-        height: 192px;
+        max-height: 192px;
         padding: 0 24px;
         display: flex;
         align-items: center;
         grid-column: span 2;
-        background-color: #d9d9d9;
         grid-row-start: 2;
         grid-row-end: 7;
         font-size: 16px;
         text-align: left;
         margin: 0;
         line-height: 24px;
+        padding: 16px 23px;
+        background-color: #fcfaf9;
+        border-top: 1px solid #d8e1e7;
+        border-bottom: 1px solid #d8e1e7;
       }
     }
   }
@@ -162,6 +217,7 @@
     line-height: 24px;
     text-align: left;
     margin: 24px 0;
+    color: var(--accent-blue);
   }
 
   &__list {
@@ -183,23 +239,37 @@
 
   &__buttons {
     display: flex;
-    justify-content: space-between;
+    gap: 56px;
+    height: 32px;
 
     &_btn {
-      background-color: #fff;
+      background-color: transparent;
       border: 1px solid #000;
-      width: 19%;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px 0;
       cursor: pointer;
       font-size: 20px;
+      text-decoration: none;
+      color: var(--dark-blue);
+      border: none;
+
+      &:hover {
+        color: var(--dark-blue);
+        font-size: 24px;
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 5px;
+      }
     }
   }
 
   &__map {
     text-align: left;
+    &:target {
+      scroll-margin-top: 90px;
+    }
     &_title {
       font-size: 32px;
     }
@@ -207,6 +277,9 @@
 
   &__schedule {
     text-align: left;
+    &:target {
+      scroll-margin-top: 90px;
+    }
 
     &_title {
       font-size: 32px;
@@ -215,6 +288,10 @@
 
   &__price {
     text-align: left;
+
+    &:target {
+      scroll-margin-top: 90px;
+    }
 
     &_title {
       font-size: 32px;
@@ -243,6 +320,9 @@
 
   &__promo {
     text-align: left;
+    &:target {
+      scroll-margin-top: 90px;
+    }
 
     &_title {
       font-size: 32px;
@@ -255,6 +335,9 @@
 
   &__experts {
     text-align: left;
+    &:target {
+      scroll-margin-top: 90px;
+    }
 
     &_title {
       font-size: 32px;
@@ -269,6 +352,10 @@
 
   &__info {
     text-align: left;
+
+    &:target {
+      scroll-margin-top: 90px;
+    }
 
     &_title {
       font-size: 32px;

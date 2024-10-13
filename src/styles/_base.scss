@@ -1,0 +1,14 @@
+@import './_colors.scss';
+.input-font {
+    font-family: "Wix Madefor Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    color: $dark-blue;
+    line-height: 32px; /* 133.333% */
+    text-align: center;
+    &:hover {
+        font-weight: 500;
+      }
+}
+    

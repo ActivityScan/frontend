@@ -1,8 +1,156 @@
+// .home {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding-top: 200px;
+
+//   &__title {
+//     font-size: 64px;
+//     font-weight: 600;
+//     line-height: 64px;
+//     letter-spacing: 1.28px;
+//     margin: 0;
+//     margin-bottom: 32px;
+//     color: var(--dark-blue);
+//     user-select: none;
+//   }
+
+//   &__text {
+//     width: 891px;
+//     font-size: 24px;
+//     font-weight: 400;
+//     line-height: 32px;
+//     color: var(--dark-blue);
+//     margin: 0;
+//     margin-bottom: 56px;
+//     user-select: none;
+//   }
+
+//   &__form {
+//     display: flex;
+
+//     .home__button {
+//       width: 224px;
+//       height: 64px;
+//       font-size: 24px;
+//       font-weight: 600;
+
+//       line-height: 32px;
+//       background-color: var(--accent-blue);
+//       color: var(--white);
+//       cursor: pointer;
+//       border: none;
+//       border-top-right-radius: 20px;
+//       border-bottom-right-radius: 20px;
+//       transition: all 1s ease-out;
+
+//       & a {
+//         text-decoration: none;
+//         color: var(--white);
+//       }
+
+//       &:hover {
+//         background: var(--gradient);
+//       }
+//     }
+//   }
+
+//   .home__button {
+//     width: 198px;
+//     height: 64px;
+//     font-size: 24px;
+//     font-weight: normal;
+//     background-color: #ff9d00;
+//     background: linear-gradient(
+//       90deg,
+//       rgba(255, 194, 0, 1) 0%,
+//       rgba(254, 174, 0, 1) 33%,
+//       rgba(251, 122, 0, 1) 66%,
+//       rgba(243, 102, 0, 1) 100%
+//     );
+//     cursor: pointer;
+//     border: none;
+//     border-top-right-radius: 20px;
+//     border-bottom-right-radius: 20px;
+//     transition: all 1s ease-out;
+
+//     &:hover {
+//       background: linear-gradient(
+//         90deg,
+//         rgba(243, 102, 0, 1) 0%,
+//         rgba(251, 122, 0, 1) 33%,
+//         rgba(254, 174, 0, 1) 66%,
+//         rgba(255, 194, 0, 1) 100%
+//       );
+//     }
+//   }
+// }
+
+// .inner {
+//   width: 100vw;
+//   text-align: left;
+//   margin-top: 20px;
+//   margin-left: 20px;
+//   position: relative;
+
+// &__allInfos{
+//   width: 100%;
+//   height: 100px;
+//   margin-bottom: 40px;
+//   margin-left: 42px;
+//   display: flex;
+//   justify-content: start;
+//   align-items: center;
+//   font-size: 25px;
+// }
+//   &__info{
+//     width: 100%;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-top: 110px;
+//   }
+//   &__btn {
+//     background-color: transparent;
+//     border: none;
+//     cursor: pointer;
+//     border-bottom: 1px dotted var(--dark-blue);
+//     color: var(--dark-blue);
+//     font-size: 20px;
+//     padding: 0;
+//     margin-left: 170px;
+//     margin-top: 10px;
+//   }
+
+//   &__filters {
+//     display: flex;
+//     flex-direction: column;
+//   }
+
+//   &__content {
+//     display: flex;
+//     gap: 45px;
+//   }
+//   .form{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     margin-bottom: 10px;
+//   }
+// .map{
+//   width: 40%;
+//   position: absolute;
+//   top: 250px;
+//   right: 150px;
+//   height: 100vh;
+// }
+// }
 .home {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 200px;
+  margin-bottom: 500px;
 
   &__title {
     font-size: 64px;
@@ -87,8 +235,44 @@
 }
 
 .inner {
-  width: 80vw;
+  width: 100vw;
   text-align: left;
+  margin-top: 20px;
+  margin-left: 20px;
+  // position: relative;
+
+  &__allInfos {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 40px;
+    margin-left: 42px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 25px;
+  }
+  &__info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 110px;
+    position: relative;
+
+    .map {
+      width: 40%;
+      position: fixed;
+      top: 350px;
+      bottom: 0;
+      // height: 100%;
+      right: 150px;
+      // height: 60vh;
+    }
+    .map.scrolled {
+      top: 0;
+      transition: all 0.5s ease-out;
+    }
+  }
 
   &__btn {
     background-color: transparent;
@@ -96,6 +280,8 @@
     cursor: pointer;
     border-bottom: 1px solid var(--dark-blue);
     padding: 0;
+    margin-left: 170px;
+    margin-top: 10px;
   }
 
   &__filters {
@@ -106,5 +292,11 @@
   &__content {
     display: flex;
     gap: 45px;
+  }
+  .form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
   }
 }

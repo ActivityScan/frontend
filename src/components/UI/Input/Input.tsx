@@ -7,7 +7,7 @@ import styles from "./Input.module.scss";
 import { InputFieldProps } from "../../../Types/types";
 import { InputHTMLAttributes, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setAddress, setAge } from "@/store/searchSlice";
+import { setUserAddress, setAge } from "@/store/searchSlice";
 import * as yup from 'yup';
 import { getValidationSchema } from "@/utils/getValidationSchema";
 
@@ -15,7 +15,7 @@ const InputItem: React.FC<InputFieldProps>=({
 //   title,
 //   type,
 //   className,  
-//   placeholder,
+  placeholder,
 //   searchValue,
 //   onChangeSearchInput,
 //   setSearchValue,
@@ -55,14 +55,14 @@ const InputItem: React.FC<InputFieldProps>=({
           break;
         case 'address':
           field.onChange(value);
-          if (value.toLowerCase().startsWith('са')) {
-            const fullAddress = 'Санкт-Петербург';
-            setLocalValue(fullAddress);
-            field.onChange(fullAddress);
-            dispatch(setAddress(fullAddress));
-          } else {
-            dispatch(setAddress(value));
-          }
+          // if (value.toLowerCase().startsWith('са')) {
+          //   const fullAddress = 'Санкт-Петербург';
+          //   setLocalValue(fullAddress);
+          //   field.onChange(fullAddress);
+          //   dispatch(setUserAddress(fullAddress));
+          // } else {
+          //   dispatch(setUserAddress(value));
+          // }
           break;
         default:
           field.onChange(value);
@@ -129,7 +129,7 @@ const InputItem: React.FC<InputFieldProps>=({
           
             //   title="Начните вводить"
             //   type="text"
-            //   placeholder={placeholder}
+              placeholder={placeholder}
               // value={searchValue}
             //   onChange={onChangeSearchInput}
             {...field}
