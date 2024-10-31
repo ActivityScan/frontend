@@ -1,4 +1,4 @@
-@import '@/styles/_colors.scss';
+@import "@/styles/_colors.scss";
 .menu,
 .submenu {
   list-style: none;
@@ -10,6 +10,18 @@
   // scrollbar-width: thin;
   // scrollbar-color: $dark-blue-button #f1f1f1;
   cursor: pointer;
+  scrollbar-color: $dark-blue-button #f1f1f1;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark-blue-button;
+    border-radius: 32px;
+  }
 }
 
 .menu {
@@ -50,7 +62,7 @@
   // }
   &__item,
   &__subitem {
-    padding: 8px;
+    padding: 5px;
     background: none;
     border: none;
     text-align: left;
@@ -82,7 +94,10 @@
   &__subitem {
     display: flex;
     justify-content: space-between;
-    padding-left: 20px;
+    align-items: first baseline;
+    padding: 3px;
+    // padding-left: 20px;
+    // width:max-content;
 
     &:hover {
       font-weight: 600;
@@ -93,22 +108,22 @@
   padding-top: 16px;
   list-style: none;
   padding-left: 20px;
-  width: 371px;
+  width: fit-content;
+  // width: 371px;
   position: absolute;
-  left: 310px; /* Подменю будет справа от основного меню */
-  top: 115px;
+  left: 406px;; /* Подменю будет справа от основного меню */
+  top: 123px;
   // cursor: pointer;
   // top: 100px;
   overflow-y: auto;
   direction: rtl;
   // scrollbar-color: #777575 #f1f1f1;
   background-color: var(--hover);
-  height: fit-content;
-  max-height: 500px;
+  height: 300px;
   // width: 100%;
   // width: inherit;
   overflow-x: hidden;
-  min-width: 170%;
+  min-width: 180%;
   z-index: 100;
 }
 
@@ -117,7 +132,27 @@
 }
 
 .checkbox {
-  accent-color: aquamarine;
+  // accent-color: none;
+  outline: none; /* Убирает обводку при фокусе */
+  appearance: none;
+  width: 20px; /* Устанавливаем размер для видимости */
+  height: 20px; /* Устанавливаем размер для видимости */
+  border: 2px solid transparent; /* Убирает рамку, но оставляет пространство для щелчка */
+  border-radius: 4px; /* Угол для стилизованного вид */
+}
+.checkbox:checked {
+  background-color: none; /* Цвет фона при выборе */
+  border-color: none; /* Цвет рамки при выборе */
+}
+/* Добавляем галочку */
+.checkbox:checked:before {
+  content: ""; /* Оставляем пустым для изображения */
+  position: absolute; /* Позиционирование по отношению к родителю */
+  width: 24px; /* Ширина иконки */
+  height: 24px; /* Высота иконки */
+  background-image: url("@/assets/check.svg"); /* Путь к иконке */
+  background-size: contain; /* Масштабирование иконки */
+  background-repeat: no-repeat; /* Запрет повторения иконки */
 }
 
 .disabled {

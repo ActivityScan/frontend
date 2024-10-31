@@ -96,24 +96,38 @@ export interface SuggestProps {
   inputProps: {
     placeholder: string;
     value: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>, params: {
-      newValue: string;
-  }) => void;
+    onChange: (
+      event: React.ChangeEvent<HTMLInputElement>,
+      params: {
+        newValue: string;
+      }
+    ) => void;
   };
 }
 
-
 // export default class Autosuggest extends React.Component<AutosuggestProps> {}
- export interface Suggestion {
-    name: string;
-    organization: string;
-    city: string;
-    street: string;
-    housenumber: string;
-    coordinates: [number, number];
-    district: string
-  }
+export interface Suggestion {
+  name: string;
+  organization: string;
+  city: string;
+  street: string;
+  housenumber: string;
+  coordinates: [number, number];
+  district: string;
+}
 
+export type MenuItem = {
+  id: string;
+  label: string;
+  icon?: React.ReactNode; // Optional icon
+};
+export type MenuProp = {
+  items: MenuItem[];
+};
+export type SubMenuProp = {
+  items?: MenuItem[];
+  onClick: (item: MenuItem) => void; // Callback when an item is clicked
+};
 
 export interface MenuProps {
   items: string[];
@@ -123,6 +137,8 @@ export interface MenuProps {
   // className?: string
   // onSelectAll:
   disabled?: boolean;
+  ref?: React.Ref<HTMLDivElement>;
+  parentSport: { name: string } | null; // or { name: string } | undefined
 }
 export interface SubMenuProps {
   items: string[];
@@ -140,6 +156,7 @@ export interface SportsState {
   suggestions: string[];
   isAllParentSportsSelected?: boolean;
   loading?: boolean;
+  isOpen: boolean;
 }
 
 export interface Store {
@@ -162,7 +179,21 @@ export interface SearchState {
   longitude?: string | number;
   latitude?: string | number;
   sport?: string[] | string;
+  sportTypes: ServerSportTypesResponse;
 }
+
+export interface Sport {
+  id: number;
+  name: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  sports: Sport[];
+}
+
+export type ServerSportTypesResponse = Category[];
 
 export type OptionType = {
   value: SearchState;
@@ -280,6 +311,8 @@ export interface ClubInitialState {
   loading: boolean;
   error: null | string;
   status: "idle" | "loading" | "succeeded" | "failed";
+  chosenClubLongitude: number;
+  chosenClubLatitude: number;
 }
 
 export interface AsyncThunkConfig {

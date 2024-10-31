@@ -1,28 +1,46 @@
-import { sports } from "@/mocks";
-import { getAllForm } from "./getAllForm";
+import { getAllForm } from "@/utils/getAllForm";
 
-const getDisplayText = (selectedSports: string[]): string  => {
-    let displaySports: string[] = [];
-    // Обходим родительские категории (parentSport)
-    Object.keys(sports).forEach((parentSport) => {
-      const subSports = sports[parentSport];  // Массив подвидов для категории
-  
-      // Выбираем подвиды, которые выбраны для текущего parentSport
-      const selectedSubSports = subSports.filter(subSport => selectedSports.includes(subSport));
-  
-      // Если все подвиды для родительской категории выбраны или если нет подвидов (например, "Футбол")
-      if (selectedSubSports.length === subSports.length && subSports.length > 0) {
-        // Добавляем "Все [parentSport]" в массив для отображения
-        displaySports.push(`${getAllForm(parentSport)} ${parentSport.toLowerCase()}`);
-      } else if (selectedSubSports.length === 0 && selectedSports.includes(parentSport)) {
-        // Если выбрана категория без подвидов (например, "Футбол"), добавляем ее
-        displaySports.push(parentSport);
-      } else {
-        // Если выбраны только отдельные подвиды, добавляем их в массив для отображения
-        displaySports = [...displaySports, ...selectedSubSports];
-      }
-    });
-  
-    return displaySports.join(', ');
-  };
-   export default getDisplayText;
+const getDisplayText = (selectedSports: string[], sports: any): string[] => {
+  const displaySports: string[] = [];
+
+  // Перебираем каждую категорию, чтобы проверить, выбраны ли все виды спорта в ней
+  sports.forEach((category) => {
+    // Проверяем, выбраны ли все виды спорта в категории
+    const isCategoryFullySelected = category.sports.every((sport: { name: string }) =>
+      selectedSports.includes(sport.name)
+    );
+
+    // Если все виды спорта в категории выбраны, добавляем название категории в текст для отображения
+    if (isCategoryFullySelected) {
+      displaySports.push(`${getAllForm(category.name.toLowerCase())} ${category.name.toLowerCase()}`);
+    }
+  });
+
+  // Добавляем отдельные виды спорта, которые не покрываются полностью выбранной категорией
+  selectedSports.forEach((sport) => {
+    // Проверяем, входит ли вид спорта в уже выбранную категорию
+    const isSportInFullCategory = sports.some((category) =>
+      category.sports.every((sportInCategory: { name: string }) => selectedSports.includes(sportInCategory.name)) &&
+      category.sports.some((sportInCategory: { name: string }) => sportInCategory.name === sport)
+    );
+
+    // Если вид спорта не входит в выбранные категории, добавляем его в текст для отображения
+    if (!isSportInFullCategory) {
+      displaySports.push(sport);
+    }
+  });
+
+  return displaySports;
+};
+
+export default getDisplayText;
+
+export const extractCategoryName = (text: string): string => {
+  // Преобразуем текст в нижний регистр для удобства обработки
+  const lowerText = text.toLowerCase();
+
+  // Регулярное выражение для поиска слова "весь", "вся" и оставления остальных слов с большой буквы
+  const cleanedText= lowerText.replace(/(выбраны все|выбран весь|выбрана вся)/i, '').trim();
+
+    return cleanedText.charAt(0).toUpperCase() + cleanedText.slice(1);
+};

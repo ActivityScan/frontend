@@ -1,9 +1,11 @@
-import { SearchState } from "@/Types/types";
+import { fetchSportTypes } from './../utils/api';
+import { SearchState, ServerSportTypesResponse } from "@/Types/types";
 import {  createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { fetchClubs } from "@/utils/api";
+
 // import { object } from "yup";
-// import { ClubsType } from './../Types/types';
+// import { ClubsType, ServerSportTypesResponse } from './../Types/types';
 
 const initialState: SearchState = {
   // sport: state.sports.selectedSports,
@@ -17,6 +19,7 @@ const initialState: SearchState = {
   loading: false,
   longitude: '',
   latitude: '',
+  sportTypes:  [],
 };
 export const setModes = createAction<SearchState['modeWork']>('search/setModes');
 export const setTimes = createAction<SearchState['weekdayTimes']>('search/setWeekdayTimes');
@@ -50,7 +53,10 @@ const searchSlice = createSlice({
       state.longitude = action.payload.longitude;
       state.latitude = action.payload.latitude;
       console.log(state.longitude, state.latitude);
-    }
+    },
+    setSportTypes: (state, action: PayloadAction<ServerSportTypesResponse>) => {
+      state.sportTypes = action.payload;
+    },
 
     
   },
@@ -70,12 +76,28 @@ const searchSlice = createSlice({
         state.loading = false;
         state.status = 'failed';
         state.error = action.error.message || 'Произошла ошибка при получении данных о клубах';
+      })
+      .addCase(fetchSportTypes.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(fetchSportTypes.fulfilled, (state, action: PayloadAction<ServerSportTypesResponse>) => {
+        state.loading = false;
+        state.status = 'succeeded';
+        state.sportTypes = action.payload;
+      })
+      .addCase(fetchSportTypes.rejected, (state, action) => {
+        state.loading = false;
+        state.status = 'failed';
+        state.error = action.error.message || 'Произошла ошибка при получении данных о видах спорта';
       });
   },
 });
 
-export const { setAge, setUserAddress, setMode, updateSport,setWeekdayTimes, setCoordinates } = searchSlice.actions;
+export const { setAge, setUserAddress, setMode, updateSport,setWeekdayTimes, setCoordinates, setSportTypes } = searchSlice.actions;
 export const selectSportsFromSearch = (state: RootState) => state.sports.selectedSports;
+export const sportTypes = (state: RootState) => state.search.sportTypes;
 export const clubs = (state: RootState) => state.search.clubs;
 // export const userLatitude = (state: RootState)  => state.search.latitude;
 // export const userLongitude = (state: RootState) => state.search.longitude;

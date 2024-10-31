@@ -145,6 +145,21 @@
 //   height: 100vh;
 // }
 // }
+
+@import "@/styles/_colors.scss";
+
+.telegram {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  align-self: flex-end;
+  padding-right: 98px;
+  padding-bottom: 80px;
+  z-index: 100;
+} 
 .home {
   display: flex;
   flex-direction: column;
@@ -235,68 +250,69 @@
 }
 
 .inner {
-  width: 100vw;
-  text-align: left;
-  margin-top: 20px;
-  margin-left: 20px;
-  // position: relative;
-
-  &__allInfos {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 40px;
-    margin-left: 42px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    font-size: 25px;
-  }
   &__info {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 110px;
-    position: relative;
-
-    .map {
-      width: 40%;
-      position: fixed;
-      top: 350px;
-      bottom: 0;
-      // height: 100%;
-      right: 150px;
-      // height: 60vh;
-    }
-    .map.scrolled {
-      top: 0;
-      transition: all 0.5s ease-out;
-    }
+    justify-content: space-around;
+    align-items: start;
   }
-
-  &__btn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    border-bottom: 1px solid var(--dark-blue);
-    padding: 0;
-    margin-left: 170px;
-    margin-top: 10px;
+  
+  &__notFound {
+    color: $dark-blue;
+    margin-top: 20vh;
   }
 
   &__filters {
     display: flex;
     flex-direction: column;
+    width: 40%;
+    position: relative;
+    margin-top: 40px;
   }
 
-  &__content {
+  &__filterControls {
     display: flex;
-    gap: 45px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 10px;
+    padding-top: 50px;
+    padding-left: 50px;
   }
+
+  &__allInfos {
+    font-size: 18px;
+    color: var(--dark-blue);
+    padding: 24px;
+  }
+
   .form {
+    position: absolute;
+    z-index: 200;
+    width: 100%;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+  }
+
+  .map {
+    width: 100%; 
+    height: 100%; 
+    max-height: 100vh;
+    padding-left: 10px; 
+    margin-left: 130px; 
+    box-sizing: border-box; 
+    transition: height 0.3s ease, width 0.3s ease;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(198, 198, 202, 0.5); 
+    z-index: 100; // Выше всех остальных элементов
+    // display: none; // Оверлей скрыт по умолчанию
   }
 }

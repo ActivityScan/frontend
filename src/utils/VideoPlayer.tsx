@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const VideoPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,6 +26,7 @@ const VideoPlayer = () => {
         ref={videoRef}
         src="/Где_карта,_билли.mp4.mp4" // replace with your video URL
         controls
+        width={800}
       />
       <button onClick={handlePlayVideo}>Play Video</button>
       <button onClick={handlePauseVideo}>Pause Video</button>

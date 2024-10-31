@@ -77,57 +77,45 @@ const WorkModeSelector: React.FC<InputFieldProps> = ({
     }),
     container: (provided, state) => ({
       ...provided,
-      width: "100%", // Настройка ширины самого контейнера селекта
+      width: "20%",
+      minWidth: "224px", // Настройка ширины самого контейнера селекта
       // margin: '0 auto', // Центрирование контейнера на странице
-      backgroundColor: state.isFocused ? "#FDDF9D" : "transparent",
-      height: "100%",
+      backgroundColor: state.isFocused ? "#fcfaf9" : "#fcfaf9",
+      border: state.isFocused ? "2px solid #adcde5" : "2px solid #ff9900",
+      borderRadius: "4px",
+      height: "64px",
       padding: "0px",
       textAlign: "center",
       alignContent: "space-around",
       caretColor: "transparent",
+      maxHeight: "63.3px",
 
       //  border: state.isSelected ? 'none' : 'none', // Линия разделения между индикаторами и полем ввода
     }),
-    valueContainer: (provided, state) => ({
+    valueContainer: (provided) => ({
       ...provided,
       height: "inherit",
       cursor: "pointer",
-      // padding: '2px 8px', // Отступы внутри контейнера значений
-      // display: 'flex', // Дисплей для выравнивания значений
-      // alignItems: 'center',
-      // flexWrap: 'wrap', // Чтобы значения переносились на следующую строку, если не помещаются
     }),
     indicatorsContainer: (provided) => ({
       ...provided,
-      // backgroundColor: '#f0f0f0', // Задний фон контейнера индикаторов
       padding: "0px", // Внутренний отступ
-      // borderRadius: '0 8px 8px 0', // Скругленные углы, чтобы совпадать с основным контейнером
-      // borderLeft: '1px solid #ccc', // Линия разделения между индикаторами и полем ввода
+      width: "0px",
+      display: "none",
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
       display: "none",
       widht: "10px",
-      // color: 'blue', // Цвет стрелки открытия меню
-      // '&:hover': {
-      //   color: 'darkblue', // Цвет стрелки при наведении
-      // },
       padding: "0px",
     }),
     clearIndicator: (provided) => ({
       ...provided,
       padding: "0px",
-      // backgroundColor: 'transparent',
-      // '&:hover': {
-      //   color: 'grey', // Цвет стрелки при наведении
-      // },
     }),
     control: (provided, state) => ({
       ...provided,
-      // padding: '5px',
-      // borderRadius: '10px',
-      backgroundColor: state.isFocused ? "${orange-pastel}" : "transparent",
-      // borderColor: state.isFocused ? 'green' : 'gray',
+      backgroundColor: state.isFocused ? "${white}" : "transparent",
       border: "none",
       boxShadow: state.isFocused ? "none" : provided.boxShadow,
       outline: "none",
@@ -140,11 +128,10 @@ const WorkModeSelector: React.FC<InputFieldProps> = ({
     placeholder: (provided) => ({
       ...provided,
       fontSize: "24px", // Изменение размера шрифта
-      // fontWeight: 'bold', // Жирный шрифт
       color: "#041129",
       paddingLeft: "10px",
       fontFamily: "Wix Madefor Display",
-      // fontStyle: 'italic', // Курсив
+
     }),
     menu: (provided) => ({
       ...provided,
@@ -167,7 +154,7 @@ const WorkModeSelector: React.FC<InputFieldProps> = ({
     }),
     multiValue: (provided) => ({
       ...provided,
-      backgroundColor: "${orange-pastel}",
+      backgroundColor: "${white}",
     }),
     multiValueLabel: (provided) => ({
       ...provided,
@@ -198,6 +185,7 @@ const WorkModeSelector: React.FC<InputFieldProps> = ({
         styles={customStyles}
         placeholder="Выберите режимы работы"
         isMulti
+        className={styles.select}
         {...props}
       />
 
