@@ -13,14 +13,11 @@ import Point from "ol/geom/Point";
 import { Icon, Style } from "ol/style";
 import "ol/ol.css";
 import Modal from "react-modal";
-import styles from "@/components/Map/MapResults.module.scss";
+import styles from "@/components/Map/Map.module.scss";
 import geoMarker from "@/assets/geo.svg";
-import user from "@/assets/geo-1.svg";
+import userMarkerIcon from "@/assets/geo-1.svg";
 import { useNavigate } from "react-router-dom";
 import { FullScreen, defaults as defaultControls } from "ol/control";
-// import { fetchClubInfoById } from '@/utils/api';
-// import { useDispatch } from 'react-redux';
-// import { AppDispatch } from '@/store';
 
 Modal.setAppElement("#root");
 
@@ -36,6 +33,31 @@ const ClubMapMarkers: React.FC = () => {
   const userLatitude = useAppSelector((state) => state.search.latitude);
   const userLongitude = useAppSelector((state) => state.search.longitude);
   //   const dispatch = useDispatch<AppDispatch>();
+  console.log(userLatitude, userLongitude);
+  const [isMapExpanded, setIsMapExpanded] = useState<boolean>(true);
+
+// Определяем начальные координаты, еслиюзер не выбрал свой адрес
+ const initialCoordinates: [number, number] = [30.3158, 59.9343]; // Невский пр. 30
+
+ useEffect(() => {
+  const handleScroll = () => {
+    const footer = document.getElementById("footer"); // Предположим, у футера есть id="footer"
+    if (footer) {
+      const footerRect = footer.getBoundingClientRect();
+      // Проверяем, виден ли футер
+      if (footerRect.top <= window.innerHeight) {
+        setIsMapExpanded(false); // Уменьшаем высоту карты
+      } else {
+        setIsMapExpanded(true); // Полная высота карты
+      }
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   useEffect(() => {
     const initialMap = new Map({
@@ -49,7 +71,7 @@ const ClubMapMarkers: React.FC = () => {
         }),
       ],
       view: new View({
-        center: fromLonLat([userLatitude, userLongitude]),
+        center: fromLonLat((userLatitude !== "" && userLatitude !== undefined && userLongitude !== "" && userLongitude !== undefined) ? [userLatitude, userLongitude] : initialCoordinates),
         zoom: 12,
       }),
       controls: defaultControls().extend([
@@ -92,28 +114,42 @@ const ClubMapMarkers: React.FC = () => {
           geometry: new Point(fromLonLat([club.longitude, club.latitude])),
         });
 
+
+        const defaultIcon = new Icon({
+          src: geoMarker,
+          scale: 0.4, // Стандартный размер
+        });
+  
+        const hoverIcon = new Icon({
+          src: geoMarker,
+          scale: 0.54, // Размер при наведении
+        });
+
         marker.setStyle(
           new Style({
-            image: new Icon({
-              src: geoMarker,
-              scale: 0.4,
-              //   anchor: [1, 1],
-            }),
+            image: defaultIcon,
           })
         );
 
         // Сохраняем информацию о клубе в маркере
         marker.set("club", club);
+        marker.set("defaultStyle", new Style({ image: defaultIcon })); // Сохраняем стандартный стиль
+        marker.set("hoverStyle", new Style({ image: hoverIcon })); // Сохраняем стиль для hover
         vectorSource.addFeature(marker);
       });
 
+      const userLayer = new VectorLayer({
+        source: new VectorSource(),
+      });
+      map.addLayer(userLayer);
+    
       // Добавляем маркер для пользователя, если его координаты существуют
        if (userLongitude && userLatitude) {
         const userCoordinates = [userLatitude, userLongitude];
         const userMarker = new Feature({
           geometry: new Point(fromLonLat(userCoordinates)),
         });
-        const userMarkerURL = user;
+        const userMarkerURL = userMarkerIcon;
         userMarker.setStyle(
           new Style({
             image: new Icon({
@@ -123,7 +159,10 @@ const ClubMapMarkers: React.FC = () => {
           })
         );
 
-        vectorSource.addFeature(userMarker);
+        userLayer.getSource()?.addFeature(userMarker);
+        // // Центрируем карту на пользователя
+        map.getView()?.setCenter(fromLonLat(userCoordinates));
+        // // map.getView().setZoom(15);
       }
 
       const mapTarget = map.getTarget();
@@ -139,6 +178,7 @@ const ClubMapMarkers: React.FC = () => {
         if (feature && popupRef.current) {
           const club = feature.get("club");
           if (club) {
+            feature.setStyle(feature.get("hoverStyle")); // Устанавливаем стиль hover
             const coordinate = evt.coordinate;
 
             setPopupContent(
@@ -149,6 +189,10 @@ const ClubMapMarkers: React.FC = () => {
             popupRef.current.innerHTML = `<div><strong>${club.name}</strong><br>${club.address}</div>`;
           }
         } else if (popupRef.current) {
+               // Возвращаем стандартный стиль, если мышь ушла с маркера
+          vectorSource.getFeatures().forEach((markerFeature) => {
+            markerFeature.setStyle(markerFeature.get("defaultStyle"));
+          });
           overlay.setPosition(undefined); // Скрываем попап
           popupRef.current.style.display = "none"; // Скрываем элемент попапа
         }
@@ -161,7 +205,8 @@ const ClubMapMarkers: React.FC = () => {
                 const club = feature.get("club");
                 if (club) {
                   //  dispatch(fetchClubInfoById(club.id));
-                  navigate(`/club/${club.id}`); // Переход на компонент карточки клуба по id
+                  // navigate(`/club/${club.id}`); // Переход на компонент карточки клуба по id
+                  window.open(`/club/${club.id}`, '_blank');
                 }
               }
             }
@@ -173,7 +218,7 @@ const ClubMapMarkers: React.FC = () => {
         });
       });
     }
-  }, [map, clubsList, overlay]);
+  }, [map, clubsList, overlay, userLongitude, userLatitude, navigate]);
 
   //   // Закрытие модального окна
   //   const closeModal = () => {
@@ -188,16 +233,20 @@ const ClubMapMarkers: React.FC = () => {
         id="map"
         ref={mapRef}
         style={{
-          width: "628px",
-          // height: '100vh',
-          height: "880px",
+          width: "53%",
+          // height: "100%",
+          height: !isMapExpanded ? 'calc(100vh - 270px)' : '100vh',
+          top: !isMapExpanded ? '0' : '10vh',
+          // height: 'calc(100vh - 200px)',
+          // height: "880px",
           borderRadius: "10px", // Добавляем скругление углов
           overflow: "hidden", // Предотвращаем выход карты за границы
-          // borderRadius: '25px',
-          /*  textAlign: 'initial', 
-         position:"relative",
-         left:"900px" ,
-         top:"0px", */
+          // position: "fixed",
+          position: 'fixed',
+          // top: '10vh',
+          // top: "0",
+          bottom: "0",
+ 
         }}
       />
       {/* <div id="popup"></div> */}

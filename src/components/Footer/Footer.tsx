@@ -3,7 +3,7 @@ import styles from "./Footer.module.scss";
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer} id='footer'>
       <div className={styles.footer__info}>
         <p className={styles.footer__info_title}>(c) 2024 ООО “СпортСкан”</p>
         <p className={styles.footer__info_text}>

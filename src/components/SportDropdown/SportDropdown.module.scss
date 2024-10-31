@@ -2,49 +2,52 @@
 @import "@/styles/_base.scss";
 
 .inputContainer {
+  box-sizing: border-box;
   width: 80vw;
+  border: 2px solid #adcde5;
+  border-top: none;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
   position: absolute;
-  top: 63px;
-  left: 0;
+  top: 62px;
+  left: -2px;
   white-space: nowrap;
-  // overflow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
+  background-color: #fff;
+  z-index: 100;
 }
 
 .container {
-  width: 25%;
-  max-width: 224px;
-  position: relative;
+  width: 20%;
+  min-width: 224px;
+  // position: relative;
 }
 
 .sportSelector {
-  position: relative;
-  // width: 100%;
-  width: auto;
-  // width: 224px;
-  // max-width: 224px;
-  height: 64px;
-  position: relative;
-  background-color: $bright-yellow;
-  border-right: 4px solid var(--white);
+  // width: 20%;
+  // min-width: 224px;
+  height: 60px;
+  // position: relative;
+  // background-color: $bright-yellow;
+
+  background-color: var(--white);
+  border: 2px solid #ff9900;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 5px;
   color: var(--dark-Blue);
   font-weight: 400;
   cursor: pointer;
- 
+  transition: all 0.3s ease-out;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
 
   &:hover {
     font-weight: 600;
-  }
-
-  &:first-child {
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    padding-left: 16px;
-    font-size: 20px;
   }
 
   &__input {
@@ -62,26 +65,20 @@
 
 .sportSelectorActive {
   position: relative;
-  // width: 100%;
-  width: auto;
-  // width: 224px;
-  // max-width: 224px;
-  height: 64px;
+  height: 60px;
   position: relative;
-  background-color: var(--orange-pastel);
-  border-right: 4px solid var(--white);
+  border: 2px solid #adcde5;
+  border-radius: 4px;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 5px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 0;
 
   cursor: pointer;
-
-  &:first-child {
-    border-top-left-radius: 20px;
-    padding-left: 16px;
-    font-size: 20px;
-  }
 
   &__input {
     width: 1000px;
@@ -130,8 +127,9 @@
 
 label {
   width: 100%;
+  padding-left: 10px;
+  // padding-bottom: 5px;
   // margin: auto;
-  margin-top: 15px;
   white-space: nowrap; // Текст не переносится на новую строку
   overflow: clip;
   text-overflow: ellipsis; // Добавляем многоточие
@@ -158,9 +156,10 @@ label {
 
 .dropdown {
   position: absolute;
-  top: 114px;
+  // top: 114px;
+  top: 123px;
   left: 0;
-  width: 309px;
+  width: 404px;
   background: var(--white);
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -182,7 +181,8 @@ label {
     direction: rtl;
     scrollbar-color: $dark-blue-button #f1f1f1;
     scrollbar-width: thin;
-   
+    // border-radius: 32px;
+    // background-clip: padding-box;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -192,6 +192,11 @@ label {
     &::-webkit-scrollbar-thumb {
       background-color: $dark-blue-button;
       border-radius: 32px;
+      background-clip: padding-box;
+      // border:  transparent;
+    }
+    &::-webkit-scrollbar-button {
+      display: none; /* Скрываем стрелки */
     }
   }
 
@@ -218,28 +223,17 @@ label {
     top: inherit;
   }
 }
-.searchBlock {
-  // width: 224px;
-  width: auto;
-  max-width: 224px;
-  height: 64px;
-  // height: auto;
-  position: relative;
-  background-color: var(--bright-yellow);
-  border-right: 4px solid var(--white);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  // gap: 50px;
-  // flex-direction: column;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:  #C6C6CA;
+  z-index: 1000; // Выше всех остальных элементов
+  display: none; // Оверлей скрыт по умолчанию
 }
-// .submenu {
-//   list-style: none;
-//   padding-left: 20px;
-//   position: absolute;
-//   left: 100%; /* Подменю будет справа от основного меню */
-//   top: 0;
-// }
 
 .hovered {
   text-decoration: line-through; // Зачеркивание
@@ -251,7 +245,8 @@ label {
   position: relative;
   // top: -60%; //
   width: fit-content;
-  border: solid;
+  border-radius: 4px;
+  border: 2px solid #adcde5;
   margin: auto;
   margin: 2px;
   padding: 5px;

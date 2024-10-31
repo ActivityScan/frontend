@@ -1,0 +1,13 @@
+.ol__popup {
+    background-color: white ;
+  
+    padding: 10px; /* Отступ */
+    border-radius: 5px; /* Закругленные углы */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Тень */
+  }
+:global {
+  .ol-zoom {
+    top: 7.5em;
+    left: .5em;
+  }
+}  

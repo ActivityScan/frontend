@@ -2,7 +2,7 @@
 import type { Input } from "@/Types/types";
 import { useController, Control, RegisterOptions } from 'react-hook-form';
 // import List from "../List/List";
-
+import { handleKeyPress } from "@/utils/onlyNumbers";
 import styles from "./Input.module.scss";
 import { InputFieldProps } from "../../../Types/types";
 import { InputHTMLAttributes, useState } from "react";
@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUserAddress, setAge } from "@/store/searchSlice";
 import * as yup from 'yup';
 import { getValidationSchema } from "@/utils/getValidationSchema";
+
 
 const InputItem: React.FC<InputFieldProps>=({
 //   title,
@@ -43,15 +44,17 @@ const InputItem: React.FC<InputFieldProps>=({
     const [localValue, setLocalValue] = useState(field.value);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value;
+     const value = event.target.value;
       setLocalValue(value);
-      
+      // let numericValue;
       switch (name) {
         case 'age':
-          const numericValue = value.replace(/\D/g, '');
+         const numericValue = value.replace(/\D/g, '');
+         setLocalValue(numericValue);
+          // numericValue = handleKeyPress(value);
           field.onChange(numericValue);
           dispatch(setAge(numericValue));
-          setLocalValue(numericValue);
+          // setLocalValue(value);
           break;
         case 'address':
           field.onChange(value);
@@ -141,6 +144,7 @@ const InputItem: React.FC<InputFieldProps>=({
               // field.onChange(e);
             }}
             // onKeyDown={onKeyDown}
+            onKeyDown={handleKeyPress} 
             />
             {children}
             {error && <div className={styles.inputError}>{error.message}</div>}

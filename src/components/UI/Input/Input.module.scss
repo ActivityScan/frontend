@@ -2,46 +2,53 @@
 @import "@/styles/_colors.scss";
 @import "@/styles/_base.scss";
 
-.searchBlock {
-  // width: 224px;
-  width: auto;
-  max-width: 224px;
-  height: 64px;
-  // height: auto;
-  position: relative;
-  background-color: var(--bright-yellow);
-  border-right: 4px solid var(--white);
+// .searchBlock {
+//   // width: 224px;
+//   width: auto;
+//   // max-width: 224px;
+//   min-width: 224px;
+//   height: 56px;
+//   // height: auto;
+//   position: relative;
+//   background-color: var(--white);
+//   display: flex;
+//   align-items: center;
+//   gap: 5px;
+//   // gap: 50px;
+
+//   flex-direction: column;
+
+//   &:first-child {
+//     border-top-left-radius: 20px;
+//     border-bottom-left-radius: 20px;
+//   }
+
+//   &__buttons {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 5px;
+//   }
+
+//   &__item {
+//     display: flex;
+//     flex-direction: column;
+//   }
+// }
+.input {
+  padding: 0;
+  padding-left: 10px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  // gap: 50px;
-
-  flex-direction: column;
-
-  &:first-child {
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-  }
-
-  &__buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  &__item {
-    display: flex;
-    flex-direction: column;
-  }
-}
-.input {
+  justify-content: center;
   outline: none;
-  padding-left: 16px;
-  border: none;
+  border: 2px solid #ff9900;
+  border-radius: 4px;
   background-color: transparent;
   // width: 170px;
-  width: 90%;
-  height: 62px;
+  background-color: $background-light;
+  width: 19%;
+  min-width: 224px;
+  height: 60px;
   // font-size: 24px;
   color: $dark-blue;
   position: relative;
@@ -62,8 +69,6 @@
     font-weight: 600;
   }
 
-  // &::placeholder { @extend .input-font};
-
   &::placeholder {
     @extend .input-font;
   }
@@ -79,9 +84,11 @@
   }
 
   &:focus {
-    background-color: $orange-pastel;
+    background-color: var(--white);
+    border: 2px solid #adcde5;
     &::placeholder {
       text-align: left;
+      padding-left: 2px;
     }
   }
 }
@@ -94,16 +101,21 @@
 
 .inputError {
   @include input-error;
+  top: 52%;
+  left: 26%;
 }
 
 .sportItem__child {
-  border: 1px solid #d8e1e7;
+  // border: 2px solid #adcde5;
+  // border-top: none;
+  padding: 10px;
   display: flex;
   align-items: flex-start;
-  min-height: 50px;
+  min-height: 40px;
   flex-wrap: wrap;
   height: fit-content;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  // border-bottom-left-radius: 30px;
+  // border-bottom-right-radius: 30px;
+  overflow: hidden;
   cursor: text;
 }

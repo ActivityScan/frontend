@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./SportSectionItem.module.scss";
 import { useState } from "react";
 import swimmer from "../../assets/swimmer.jpeg";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-// Adjust according to your file structure
+//import { useAppSelector } from "@/hooks/redux";
+
 
 const SportSectionsItem = (item: {
   mockSportSectionItem: {
@@ -24,9 +24,10 @@ const SportSectionsItem = (item: {
   };
 }) => {
   const [parent] = useAutoAnimate();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isOpenPhone, setIsOpenPhone] = useState<boolean>(false);
   const [isOpenCardDesc, setIsOpenCardDesc] = useState<boolean>(false);
+
   return (
     <section className={styles.container} ref={parent}>
       {isOpenCardDesc ? (
@@ -42,8 +43,7 @@ const SportSectionsItem = (item: {
             <button
               className={styles.item__map_btn}
               type="button"
-              onClick={() => setIsOpenCardDesc(!isOpenCardDesc)}
-            >
+              onClick={() => setIsOpenCardDesc(!isOpenCardDesc)}>
               {isOpenCardDesc ? (
                 <img
                   src="/svg/Open-eye.svg"
@@ -71,7 +71,8 @@ const SportSectionsItem = (item: {
               <h3
                 className={styles.item__info_name}
                 onClick={() => {
-                  navigate(`/club/${item.mockSportSectionItem.id}`);
+                  // navigate(`/club/${item.mockSportSectionItem.id}`);
+                  window.open(`/club/${item.mockSportSectionItem.id}`, '_blank');
                 }}
               >
                 {item.mockSportSectionItem.name}
@@ -129,13 +130,16 @@ const SportSectionsItem = (item: {
             </button>
           </div>
           <div className={styles.container__sale}>
-            <p>Скидка по промокоду SportScan</p>
-            <p>Бесплатное пробное занятие</p>
+             <p>Скидка по промокоду SportScan</p>
+            <p>Бесплатное пробное занятие</p>   
+            <div className={styles.container__sale__price}>
+               от 1500 ₽ за занятие
+            </div>
+                   
           </div>
         </>
       )}
     </section>
-  );
-};
+  )};
 
 export default SportSectionsItem;

@@ -14,7 +14,8 @@
   min-width: max-content;
 
   &:hover {
-    background-color: $light-grey;
+    background-color: var(--background-dark);
+    color: var(--bright-yellow);
     width: 100%;
   }
 }

@@ -1,8 +1,15 @@
 @import "@/styles/_base.scss";
 @import "@/styles/_colors.scss";
 
-.autosuggest_container {
-  width: 100%;
+.container {
+  padding: 0;
+  width: 20%;
+  min-width: 224px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-height: 63.3px;
 }
 
 .suggestion-item {
@@ -26,30 +33,41 @@
 }
 
 .inputAutosuggest {
-  border: none;
-  width: 90%;
-  background-color: transparent;
+  padding: 0;
+  // padding-left: 10px;
+  border: 2px solid #ff9900;
+  border-radius: 4px;
+  // width: calc(100% - 4px);
+  width: 100%;
+  min-width: 224px;
+  height: 60px;
+  background-color: $background-light;
   white-space: nowrap;
   display: flex;
-  // padding: 16px 32px;
-  padding: 16px 5px;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   gap: 8px;
-  flex: 1 0 0;
+  // flex: 1 0 0;
   overflow: scroll;
   color: var(--dark-blue);
   @extend .input-font;
   position: relative;
   z-index: 5;
   transition: width 0.3s ease;
-  text-align: right;
-  &:focus {
-    background-color: $orange-pastel;
+  text-align: center;
+
+  &:focus-within {
+    background-color: var(--white);
+    border: 2px solid #adcde5;
+    position: absolute;
+    box-shadow: 4px 0px 0px 0px white;
+    left: 0;
+    top: 0;
+
     // left: 0%;
     outline: none;
-    width: 130%;
-    transform: translateX(0%);
+    width: 200%;
+    max-width: 380px;
     text-align: left;
   }
   &::placeholder {
@@ -74,10 +92,12 @@
 
 .suggestionsContainer {
   border: 1px solid #ddd;
-  background-color: #fff;
+  background-color: $background-light;
   max-height: 204px;
   // overflow-y: auto;
   position: absolute;
+  top: 64px;
+  left: 0;
   z-index: 100;
   // display: flex;
   // height: 32px;
@@ -86,13 +106,15 @@
   // gap: 10px;
   // align-self: stretch;
   display: flex;
-  width: 80%;
-  min-width: 380px;
+  width: 200%;
+  max-width: 366px;
   padding: 8px 16px 4px 12px;
   align-items: flex-start;
+  justify-content: start;
   overflow-y: scroll;
   overflow-x: hidden;
   gap: 8px;
+
   &:empty {
     display: none;
   }
@@ -107,6 +129,9 @@
 
 .suggestionsList {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   margin: 0;
   padding: 0;
   &:empty {
@@ -121,6 +146,7 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
+  text-align: left;
   line-height: 24px; /* 150% */
   @extend .input-font;
   color: var(--dark-blue);
