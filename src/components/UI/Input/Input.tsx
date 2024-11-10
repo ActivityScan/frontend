@@ -123,14 +123,14 @@ const InputItem: React.FC<InputFieldProps>=({
 
   return (
     <>
-      {/* <div className={styles.searchBlock}> */}
+      <div className={styles.searchBlock}>
         {/* <div className={styles.searchBlock__item}> */}
             <input
             // name={name}
             // readOnly
             className={styles.input}
           
-            //   title="Начните вводить"
+          
             //   type="text"
               placeholder={placeholder}
               // value={searchValue}
@@ -146,11 +146,10 @@ const InputItem: React.FC<InputFieldProps>=({
             // onKeyDown={onKeyDown}
             onKeyDown={handleKeyPress} 
             />
-            {children}
+             {children}
             {error && <div className={styles.inputError}>{error.message}</div>}
-            {/* {error?.type === 'pattern' && <div className={styles.inputError}>{error.message}</div>} */}
-            {/* {fieldState.error && <div className={styles.inputError}>{fieldState.error.message}</div>} */}
-      {/* </div> */}
+        
+      </div>
     </>
     
   );

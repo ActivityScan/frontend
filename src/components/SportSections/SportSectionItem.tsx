@@ -2,6 +2,10 @@ import styles from "./SportSectionItem.module.scss";
 import { useState } from "react";
 import swimmer from "../../assets/swimmer.jpeg";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setClubsVisibility } from "@/store/searchSlice";
+// import { ClubsVisibility } from "@/Types/types";
 //import { useAppSelector } from "@/hooks/redux";
 
 
@@ -21,12 +25,31 @@ const SportSectionsItem = (item: {
     longitude: number;
     sport: { id: number; name: string };
     distance: number;
+    clubId: number;
+    // toggleClubVisibility: (clubId: number) => void;
   };
 }) => {
   const [parent] = useAutoAnimate();
   // const navigate = useNavigate();
   const [isOpenPhone, setIsOpenPhone] = useState<boolean>(false);
   const [isOpenCardDesc, setIsOpenCardDesc] = useState<boolean>(false);
+  const clubsVisibility = useAppSelector((state) => state.search.clubsVisibility);
+  const dispatch = useAppDispatch();
+  // const isVisible = clubsVisibility[item.mockSportSectionItem.id] || false;
+  //скрытие метки при нажатии на глаз
+  const toggleClubVisibility = (clubId: number) => {
+    // setIsOpenCardDesc(!isOpenCardDesc);
+    dispatch(setClubsVisibility({ clubId, visible: !clubsVisibility[clubId] }));
+    setIsOpenCardDesc(!isOpenCardDesc);
+  };
+
+  // const handleClick = () => {
+  //   if (toggleClubVisibility) {
+  //     toggleClubVisibility(clubId);
+  //   } else {
+  //     console.error('toggleClubVisibility is undefined');
+  //   }
+  // };
 
   return (
     <section className={styles.container} ref={parent}>
@@ -43,7 +66,17 @@ const SportSectionsItem = (item: {
             <button
               className={styles.item__map_btn}
               type="button"
-              onClick={() => setIsOpenCardDesc(!isOpenCardDesc)}>
+              onClick={() => toggleClubVisibility(item.mockSportSectionItem.id)}
+            >
+              <img src="/svg/Close-eye.svg" alt="close button" width={24} height={24} />
+            </button>
+            {/* <button
+              className={styles.item__map_btn}
+              type="button"
+              onClick={() => toggleClubVisibility(item.mockSportSectionItem.id)}
+              // onClick={() => handleClick()}
+              // onClick={() => setIsOpenCardDesc(!isOpenCardDesc)}
+              >
               {isOpenCardDesc ? (
                 <img
                   src="/svg/Open-eye.svg"
@@ -59,7 +92,7 @@ const SportSectionsItem = (item: {
                   height={24}
                 />
               )}
-            </button>
+            </button> */}
           </div>
         </div>
       ) : (
@@ -70,12 +103,14 @@ const SportSectionsItem = (item: {
             <div className={styles.item__info}>
               <h3
                 className={styles.item__info_name}
-                onClick={() => {
-                  // navigate(`/club/${item.mockSportSectionItem.id}`);
-                  window.open(`/club/${item.mockSportSectionItem.id}`, '_blank');
-                }}
               >
-                {item.mockSportSectionItem.name}
+                 <Link to={`/club/${item.mockSportSectionItem.id}`}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className={styles.link} 
+                   >
+                  {item.mockSportSectionItem.name}
+                </Link>
               </h3>
               {item.mockSportSectionItem.distance && 
                 typeof item.mockSportSectionItem.distance === 'number' && 
@@ -110,7 +145,7 @@ const SportSectionsItem = (item: {
             <button
               className={styles.item__map_btn}
               type="button"
-              onClick={() => setIsOpenCardDesc(!isOpenCardDesc)}
+              onClick={() => toggleClubVisibility(item.mockSportSectionItem.id)}
             >
               {isOpenCardDesc ? (
                 <img

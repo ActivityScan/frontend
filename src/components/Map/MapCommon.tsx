@@ -35,9 +35,11 @@ const ClubMapMarkers: React.FC = () => {
   //   const dispatch = useDispatch<AppDispatch>();
   console.log(userLatitude, userLongitude);
   const [isMapExpanded, setIsMapExpanded] = useState<boolean>(true);
+  const clubsVisibility = useAppSelector((state) => state.search.clubsVisibility);
 
 // Определяем начальные координаты, еслиюзер не выбрал свой адрес
  const initialCoordinates: [number, number] = [30.3158, 59.9343]; // Невский пр. 30
+ console.log(clubsVisibility)
 
  useEffect(() => {
   const handleScroll = () => {
@@ -108,36 +110,42 @@ const ClubMapMarkers: React.FC = () => {
     if (map && overlay) {
       const vectorLayer = map.getLayers().item(1) as VectorLayer;
       const vectorSource = vectorLayer.getSource() as VectorSource;
-
-      clubsList.forEach((club: Club) => {
-        const marker = new Feature({
-          geometry: new Point(fromLonLat([club.longitude, club.latitude])),
-        });
-
-
-        const defaultIcon = new Icon({
-          src: geoMarker,
-          scale: 0.4, // Стандартный размер
-        });
+      console.log(clubsVisibility);
+      // Очищаем старые маркеры перед добавлением новых
+       vectorSource.clear();
+      
+       clubsList.forEach((club: Club) => {
+        console.log(clubsVisibility[club.id]);
+        // Проверяем видимость клуба в состоянии clubsVisibility
+        if (clubsVisibility[club.id]) {
+          const marker = new Feature({
+            geometry: new Point(fromLonLat([club.longitude, club.latitude])),
+          });
   
-        const hoverIcon = new Icon({
-          src: geoMarker,
-          scale: 0.54, // Размер при наведении
-        });
-
-        marker.setStyle(
-          new Style({
-            image: defaultIcon,
-          })
-        );
-
-        // Сохраняем информацию о клубе в маркере
-        marker.set("club", club);
-        marker.set("defaultStyle", new Style({ image: defaultIcon })); // Сохраняем стандартный стиль
-        marker.set("hoverStyle", new Style({ image: hoverIcon })); // Сохраняем стиль для hover
-        vectorSource.addFeature(marker);
+          const defaultIcon = new Icon({
+            src: geoMarker,
+            scale: 0.4, // Стандартный размер
+          });
+  
+          const hoverIcon = new Icon({
+            src: geoMarker,
+            scale: 0.54, // Размер при наведении
+          });
+  
+          marker.setStyle(
+            new Style({
+              image: defaultIcon,
+            })
+          );
+  
+          // Сохраняем информацию о клубе в маркере
+          marker.set("club", club);
+          marker.set("defaultStyle", new Style({ image: defaultIcon })); // Сохраняем стандартный стиль
+          marker.set("hoverStyle", new Style({ image: hoverIcon })); // Сохраняем стиль для hover
+          vectorSource.addFeature(marker);
+        }
       });
-
+      
       const userLayer = new VectorLayer({
         source: new VectorSource(),
       });
@@ -218,7 +226,7 @@ const ClubMapMarkers: React.FC = () => {
         });
       });
     }
-  }, [map, clubsList, overlay, userLongitude, userLatitude, navigate]);
+  }, [map, clubsList, overlay, userLongitude, userLatitude, navigate, clubsVisibility]);
 
   //   // Закрытие модального окна
   //   const closeModal = () => {
@@ -233,10 +241,10 @@ const ClubMapMarkers: React.FC = () => {
         id="map"
         ref={mapRef}
         style={{
-          width: "53%",
+          width: "47%",
           // height: "100%",
           height: !isMapExpanded ? 'calc(100vh - 270px)' : '100vh',
-          top: !isMapExpanded ? '0' : '10vh',
+          top: !isMapExpanded ? '0' : '13vh',
           // height: 'calc(100vh - 200px)',
           // height: "880px",
           borderRadius: "10px", // Добавляем скругление углов
@@ -246,6 +254,7 @@ const ClubMapMarkers: React.FC = () => {
           // top: '10vh',
           // top: "0",
           bottom: "0",
+          marginLeft: "2%",
  
         }}
       />

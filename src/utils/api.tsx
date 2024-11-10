@@ -16,9 +16,9 @@ export const fetchClubs = createAsyncThunk<Club[], ValidateValues>(
         console.log(data);
         const response = await axios.get('/api/clubs/main-filter', {
           params: {
-            age: data.age,
+            age: data.age.toString(),
             // city: data.address,
-            city: 'Saint Petersburg',
+            city: 'Санкт-Петербург',
             // modeWork: data.modeWork?.join(','),
             sportNames:  data?.sportNames,
             // ...(data.sportNames ? { sportNames: data.sportNames.join(',') } : {}),

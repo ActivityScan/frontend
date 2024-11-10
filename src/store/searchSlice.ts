@@ -1,14 +1,16 @@
 import { fetchSportTypes } from './../utils/api';
 import { SearchState, ServerSportTypesResponse } from "@/Types/types";
-import {  createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {  ActionCreatorWithoutPayload, createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { fetchClubs } from "@/utils/api";
+// import { set } from 'ol/transform';
 
 // import { object } from "yup";
 // import { ClubsType, ServerSportTypesResponse } from './../Types/types';
 
 const initialState: SearchState = {
-  // sport: state.sports.selectedSports,
+  // sport: sports.selectedSports,
+  // sport: [],
   age: undefined,
   address: "",
   modeWork: '' as SearchState['modeWork'],
@@ -20,9 +22,16 @@ const initialState: SearchState = {
   longitude: '',
   latitude: '',
   sportTypes:  [],
+  addressError: false,
+  clubsVisibility: {
+    // [clubId]:true
+  },
+  isAutosuggestOpen: false
 };
 export const setModes = createAction<SearchState['modeWork']>('search/setModes');
 export const setTimes = createAction<SearchState['weekdayTimes']>('search/setWeekdayTimes');
+// export const resetFilters: ActionCreatorWithoutPayload<"reset/filters">
+export const resetFilters = createAction('reset/filters');
 
 const searchSlice = createSlice({
   name: 'search',
@@ -57,8 +66,27 @@ const searchSlice = createSlice({
     setSportTypes: (state, action: PayloadAction<ServerSportTypesResponse>) => {
       state.sportTypes = action.payload;
     },
-
-    
+    setAddressError: (state, action: PayloadAction<boolean>) => {
+      state.addressError = action.payload;  
+    },
+    // resetFilters: (state) => {
+    //   state.age = undefined;
+    //   state.address = "";
+    //   state.modeWork = '' as SearchState['modeWork'];
+    //   state.weekdayTimes = [];
+    //   state.sport = [];
+    //   state.longitude = '';
+    //   state.latitude = '';
+    //   state.addressError = false;
+    //   // Reset any other fields as necessary
+    // }, 
+    //resetFilters: () => initialState,// Простой сброс всех фильтров
+    setClubsVisibility: (state, action: PayloadAction<{ clubId: number; visible: boolean }>) => {
+      state.clubsVisibility[action.payload.clubId] = action.payload.visible;
+    },
+    setAutosuggestOpen(state, action: PayloadAction<{ isAutosuggestOpen: boolean }>) {
+      state.isAutosuggestOpen = action.payload.isAutosuggestOpen;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -71,6 +99,9 @@ const searchSlice = createSlice({
         state.loading = false;
         state.status = 'succeeded';
         state.clubs = action.payload;
+        action.payload.forEach(club => {
+          state.clubsVisibility[club.id] = true; // Все клубы видимы по умолчанию
+        });
       })
       .addCase(fetchClubs.rejected, (state, action) => {
         state.loading = false;
@@ -92,10 +123,13 @@ const searchSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message || 'Произошла ошибка при получении данных о видах спорта';
       });
+      builder.addCase(resetFilters, (state) => {
+        return { ...initialState };  // Сброс всех фильтров в этом слайсе
+      });
   },
 });
 
-export const { setAge, setUserAddress, setMode, updateSport,setWeekdayTimes, setCoordinates, setSportTypes } = searchSlice.actions;
+export const { setAge, setUserAddress, setMode, updateSport,setWeekdayTimes, setCoordinates, setSportTypes, setAddressError, setClubsVisibility, setAutosuggestOpen } = searchSlice.actions;
 export const selectSportsFromSearch = (state: RootState) => state.sports.selectedSports;
 export const sportTypes = (state: RootState) => state.search.sportTypes;
 export const clubs = (state: RootState) => state.search.clubs;

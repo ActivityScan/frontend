@@ -11,24 +11,29 @@ import Support from "./pages/SupportPage";
 import Info from "./pages/InfoPage";
 // import ClubMapMarkers from "./components/Map/Map1";
 import ClubMapMarkers from "./components/Map/MapCommon";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 function App() {
+  
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/info" element={<Info />} />
-        <Route path="/card" element={<Card />} />
-        {/* <Route path="/map" element={<MapResults />}></Route>
-        <Route path="/map1" element={<ClubMapMarkers />}></Route> */}
-        <Route path="/map" element={<ClubMapMarkers />}></Route>
-        {/* <Route path="/map2" element={<AddressAutosuggest />}></Route> */}
-        <Route path="/searchresults" element={<SearchResultsPage />}></Route>
-        <Route path="/club/:clubId" element={<Card/>} />
-      </Routes>
-    </Layout>
+    <>
+      <ScrollToTop />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/aboutUs" element={<AboutUs />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/info" element={<Info />} />
+            <Route path="/card" element={<Card />} />
+            {/* <Route path="/map" element={<MapResults />}></Route>
+            <Route path="/map1" element={<ClubMapMarkers />}></Route> */}
+            <Route path="/map" element={<ClubMapMarkers />}></Route>
+            {/* <Route path="/map2" element={<AddressAutosuggest />}></Route> */}
+            <Route path="/searchresults" element={<SearchResultsPage />}></Route>
+            <Route path="/club/:clubId" element={<Card/>} />
+          </Routes>
+        </Layout>
+    </>
   );
 }
 

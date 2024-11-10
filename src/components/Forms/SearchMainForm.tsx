@@ -21,7 +21,7 @@ const SearchMainForm: React.FC<InputFieldProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isOpen = useAppSelector((state) => state.sports.isOpen);
-  const { sport, age, address, modeWork, weekdayTimes } = useAppSelector(
+  const { sport, age, address, modeWork, weekdayTimes, addressError } = useAppSelector(
     (state) => state.search
   );
   // const { selectedSports } = useAppSelector(selectSportsFromSearch );
@@ -60,27 +60,16 @@ const SearchMainForm: React.FC<InputFieldProps> = () => {
   //   });
   // }, [age, address, modeWork, selectedSports, weekdayTimes, reset]);
 
-  //   useEffect(() => {
-  //     const sportTypes = async () => {
-  //       try {
-  //         const response: ReturnType<typeof fetchSportTypes> = await dispatch(fetchSportTypes())
-  //         .then(unwrapResult);
-  //         console.log("Response data:", response);
-  //       } catch (error) {
-  //         console.error("Error fetching clubs:", error);
-  //       }
-  //     }
-
-  //     sportTypes();
-
-  //   }, [dispatch]);
-
-  // console.log(sportTypes);
 
   const onSubmit: SubmitHandler<ValidateValues> = async (
     data: ValidateValues
   ) => {
     console.log(data);
+    console.log(addressError);
+    if (addressError === true) {
+      console.log("Address error:", addressError);
+      return;
+    } else {
     try {
        // Если selectedSports равно "Все виды спорта", передаем пустую строку
        const sportNames = (selectedSports && selectedSports.length > 0 && selectedSports[0] !== "Все виды спорта")
@@ -89,7 +78,7 @@ const SearchMainForm: React.FC<InputFieldProps> = () => {
       console.log(sportNames);
       const response: ReturnType<typeof fetchClubs> = await dispatch(
         fetchClubs({
-          age: data.age,
+          age: data.age || '',
           address: data.address,
           modeWork: data.modeWork,
           // ...(selectedSports !== "Все виды спорта" && {
@@ -104,23 +93,19 @@ const SearchMainForm: React.FC<InputFieldProps> = () => {
 
       console.log("Response data:", response);
       navigate("/searchresults");
-      // navigate('/searchresults1');
     } catch (error) {
       console.error("Error fetching clubs:", error);
-    }
+    }}
   };
 
-  //   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     const value = event.target.value;
-
-  //     // Проверяем, является ли значение числом или пустой строкой
-  //     if (type === 'number' && (isNaN(Number(value)) && value !== '')) {
-  //       return; // Игнорируем ввод, если это не число
-  //     }
-
-  //     field.onChange(value); // Обновляем значение в react-hook-form
+  // Добавляем обработчик нажатия Enter на уровень формы
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Отменяем стандартное поведение Enter (отправку формы)
+    }
+  };
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
       <SportSelector control={control} name="sports" children />
       {/* <span className={styles.form__pad}></span> */}
       {/* <div className={styles.form__searchBlock}> */}
@@ -146,6 +131,11 @@ const SearchMainForm: React.FC<InputFieldProps> = () => {
         type="text"
         name="address"
       />
+      {/* {addressError && (
+        <div className={styles.form__error}>
+          Данный адрес не найден  
+        </div>
+      )} */}
       {/* </div> */}
       {/* <span className={styles.form__pad}></span> */}
       {/* <div className={styles.form__searchBlock}> */}

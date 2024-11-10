@@ -4,7 +4,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 300px; /* Установите нужную высоту для списка */
+  // max-height: 300px; /* Установите нужную высоту для списка */
   // overflow-y: auto;
   // direction: rtl;
   // scrollbar-width: thin;
@@ -27,6 +27,7 @@
 .menu {
   position: relative;
   width: auto;
+  max-height: 300px;
   // list-style: none;
   // padding: 0;
   // margin: 0;
@@ -96,8 +97,10 @@
     justify-content: space-between;
     align-items: first baseline;
     padding: 3px;
+    flex-direction: row-reverse;
     // padding-left: 20px;
     // width:max-content;
+    align-items: center;
 
     &:hover {
       font-weight: 600;
@@ -105,21 +108,20 @@
   }
 }
 .submenu {
-  padding-top: 16px;
   list-style: none;
-  padding-left: 20px;
   width: fit-content;
   // width: 371px;
   position: absolute;
   left: 406px;; /* Подменю будет справа от основного меню */
-  top: 123px;
+  top: 123.7px;
+  padding: 16px 20px 0px 20px;
   // cursor: pointer;
   // top: 100px;
   overflow-y: auto;
-  direction: rtl;
+  direction: ltr;
   // scrollbar-color: #777575 #f1f1f1;
   background-color: var(--hover);
-  height: 300px;
+  height: 302px;
   // width: 100%;
   // width: inherit;
   overflow-x: hidden;

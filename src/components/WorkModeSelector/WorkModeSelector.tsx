@@ -77,18 +77,18 @@ const WorkModeSelector: React.FC<InputFieldProps> = ({
     }),
     container: (provided, state) => ({
       ...provided,
-      width: "20%",
-      minWidth: "224px", // Настройка ширины самого контейнера селекта
+      width: "100%",
       // margin: '0 auto', // Центрирование контейнера на странице
       backgroundColor: state.isFocused ? "#fcfaf9" : "#fcfaf9",
       border: state.isFocused ? "2px solid #adcde5" : "2px solid #ff9900",
       borderRadius: "4px",
+      boxSizing: "border-box",
       height: "64px",
       padding: "0px",
       textAlign: "center",
       alignContent: "space-around",
       caretColor: "transparent",
-      maxHeight: "63.3px",
+      maxHeight: "64px",
 
       //  border: state.isSelected ? 'none' : 'none', // Линия разделения между индикаторами и полем ввода
     }),
@@ -131,7 +131,7 @@ const WorkModeSelector: React.FC<InputFieldProps> = ({
       color: "#041129",
       paddingLeft: "10px",
       fontFamily: "Wix Madefor Display",
-
+      marginBottom: "4px",
     }),
     menu: (provided) => ({
       ...provided,

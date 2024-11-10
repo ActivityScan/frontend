@@ -150,7 +150,7 @@ h3 {
         justify-content: center;
         width: 262px;
         height: 60px;
-        border: 2px solid #FF9900;
+        border: 2px solid #ff9900;
         border-radius: 32px;
         cursor: pointer;
         gap: 10px;
@@ -167,7 +167,7 @@ h3 {
           justify-content: center;
           width: 262px;
           height: 60px;
-          border: 2px solid #FF9900;
+          border: 2px solid #ff9900;
           border-radius: 32px;
           cursor: pointer;
           gap: 10px;
@@ -275,9 +275,9 @@ h3 {
       content: url("/icons/google_hover.svg");
     }
   }
-  img[src="/icons/globe.svg"] {
+  img[src="/icons/website.svg"] {
     &:hover {
-      content: url("/icons/globe_hover.svg");
+      content: url("/icons/website_hover.svg");
     }
   }
   img[src="/icons/whatsapp.svg"] {

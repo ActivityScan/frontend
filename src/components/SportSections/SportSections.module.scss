@@ -1,3 +1,4 @@
+@import "@/styles/_colors.scss";
 // .container {
 //   display: flex;
 //   flex-direction: column;
@@ -84,10 +85,15 @@
   & button {
     border-radius: 32px;
     border: none;
-    padding: 15px;
+    padding: 8px 32px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: $dark-blue;
+    font-weight: 600;
+    font-family: Wix Madefor Display;
+    font-size: 16px;
+    
     & img {
       padding-left: 12px;
       padding-top: 5px;

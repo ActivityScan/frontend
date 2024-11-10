@@ -1,10 +1,14 @@
 @import "@/styles/_base.scss";
 @import "@/styles/_colors.scss";
+@import "@/styles/_mixins.scss";
+
+.autosuggest {
+  position: relative;
+}
 
 .container {
   padding: 0;
-  width: 20%;
-  min-width: 224px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,21 +37,19 @@
 }
 
 .inputAutosuggest {
+  box-sizing: border-box;
   padding: 0;
   // padding-left: 10px;
   border: 2px solid #ff9900;
   border-radius: 4px;
-  // width: calc(100% - 4px);
   width: 100%;
-  min-width: 224px;
-  height: 60px;
+  height: 64px;
   background-color: $background-light;
   white-space: nowrap;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  // flex: 1 0 0;
   overflow: scroll;
   color: var(--dark-blue);
   @extend .input-font;
@@ -156,6 +158,16 @@
   }
 }
 
+.error {
+  @include input-error;
+  // background-color: var(--background-dark);
+  top: 100%;
+  left: 0.5em;
+}
 // .suggestionHighlighted {
 //   background-color: #f0f0f0;
 // }
+
+.overlay {
+  @include overlay;
+}

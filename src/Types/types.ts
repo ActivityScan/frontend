@@ -102,6 +102,7 @@ export interface SuggestProps {
         newValue: string;
       }
     ) => void;
+    onFocus: () => void;
   };
 }
 
@@ -180,8 +181,14 @@ export interface SearchState {
   latitude?: string | number;
   sport?: string[] | string;
   sportTypes: ServerSportTypesResponse;
+  addressError?: boolean,
+  clubsVisibility?: ClubsVisibility,
+  isAutosuggestOpen?: boolean 
 }
-
+ 
+export type ClubsVisibility= {
+  [clubId: number]: boolean;
+}
 export interface Sport {
   id: number;
   name: string;

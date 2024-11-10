@@ -56,6 +56,9 @@
     gap: 12px;
     &_name {
       cursor: pointer;
+      text-align: start;
+      // text-decoration: none; 
+      // color: var(--accent-blue);
     }
   }
 
@@ -91,7 +94,6 @@
   display: flex;
   width: 628px;
   justify-content: space-between;
-  border-top: 1px solid #d9d9d9;
   border-bottom: 1px solid #d9d9d9;
 
   &__inner {
@@ -117,4 +119,9 @@
       color: #828282;
     }
   }
+}
+
+.link {
+  text-decoration: none; // Убирает подчеркивание
+  color: var(--accent-blue); // Наследует цвет текста
 }

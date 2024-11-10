@@ -1,5 +1,6 @@
 import { SportsState } from "@/Types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { resetFilters } from "./searchSlice";
 
 export const initialState: SportsState = {
   selectedSports: [],
@@ -100,6 +101,11 @@ const sportSlice = createSlice({
       console.log(state.isAllParentSportsSelected);
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(resetFilters, (state) => {
+      state.selectedSports = []; // Сброс конкретного поля в этом слайсе
+    });
+  }
 });
 
 export const {

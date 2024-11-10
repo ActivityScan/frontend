@@ -20,14 +20,13 @@ const SportSections = () => {
       <div className={styles.container}>
         <div className={styles.buttons}>
           <button>
-        дополнительные фильтры
-        <img src={vektor} alt="vektor"  className={styles.vektor}/>
-            </button> 
-            <button> 
+            Дополнительные фильтры
+            <img src={vektor} alt="vektor"  className={styles.vektor}/>
+          </button> 
+          <button> 
                По расстоянию
           <img src="/svg/Sort.svg" alt="sort" />
-        
-        </button>
+          </button>
         </div>
        
         <div>
@@ -36,18 +35,20 @@ const SportSections = () => {
                 <SportSectionItem key={club.id} mockSportSectionItem={club} />
               ))
             : clubsList
-                .slice(0, 3)
+                .slice(0, 10)
                 .map((club: any) => (
                   <SportSectionItem key={club.id} mockSportSectionItem={club} />
                 ))}
         </div>
       </div>
-      <button
-        className={styles.btn}
-        onClick={() => setMore((prevMore) => !prevMore)}
-      >
-   {clubsList.length > 3 && (more ? "Показать меньше" : "Показать ещё")}
-      </button>
+      {clubsList.length > 10 && (
+        <button
+          className={styles.btn}
+          onClick={() => setMore((prevMore) => !prevMore)}
+        >
+          {clubsList.length > 10  && (more ? "Показать меньше" : "Показать ещё")}
+        </button>
+      )}
     </section>
   );
 };
