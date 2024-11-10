@@ -11,11 +11,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8098',
+        target: 'http://31.128.41.30:8098',
         changeOrigin: true,
         configure: (proxy, options) => {
           proxy.on('proxyReq', (proxyReq, req, res) => {
-            proxyReq.setHeader('Origin', 'http://localhost:8098');
+            proxyReq.setHeader('Origin', 'http://31.128.41.30:8098');
           });
           proxy.on('proxyRes', (proxyRes, req, res) => {
             proxyRes.headers['Access-Control-Allow-Origin'] = '*';
