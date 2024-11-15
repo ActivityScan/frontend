@@ -1,4 +1,4 @@
-import { RiseLoader } from 'react-spinners';
+import { RiseLoader } from 'react-spinners'
 
 const spinnerContainerStyle: React.CSSProperties = {
   position: 'fixed',
@@ -11,20 +11,20 @@ const spinnerContainerStyle: React.CSSProperties = {
   alignItems: 'center',
   backgroundColor: 'rgba(0, 0, 0, 0.5)', // Полупрозрачный фон
   zIndex: 9999, // Убедиться, что спиннер отображается поверх других элементов
-};
+}
 
 const override = {
   display: 'flex',
   margin: 'auto',
   borderColor: 'red',
-};
+}
 
-const Spinner:() => JSX.Element = () => {
+const Spinner: () => JSX.Element = () => {
   return (
     <div style={spinnerContainerStyle}>
       <RiseLoader color="orange" cssOverride={override} size={30} />
     </div>
-  );
-};
+  )
+}
 
-export default Spinner;
+export default Spinner

@@ -48,7 +48,7 @@
 //     //   state.selectedSubSport = action.payload;
 //     // },
 //     selectAllSports: (state, action: PayloadAction<{ parentSport: string, sports: string[] }>) => {
-//       const { 
+//       const {
 //         // parentSport,
 //          sports } = action.payload;
 
@@ -56,7 +56,7 @@
 //         if (!state.selectedSports.includes(sport)) {
 //           state.selectedSports.push(sport);
 //         }
-        
+
 //       });
 //       // state.isAllParentSportsSelected = !state.isAllParentSportsSelected
 //       //     console.log(state.isAllParentSportsSelected)

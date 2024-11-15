@@ -1,21 +1,20 @@
 @mixin input-error {
-    outline: 1px solid rgb(167, 156, 156);
-    border: none;
-    color: #050001;
-    background-color: var(--background-light);
-    position: absolute;
-    // top: 70px;
-    padding: 5px;
+  outline: 1px solid rgb(167, 156, 156);
+  border: none;
+  color: #050001;
+  background-color: var(--background-light);
+  position: absolute;
+  // top: 70px;
+  padding: 5px;
 }
 
 @mixin overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color:  #C6C6CA;
-    z-index: 1000; // Выше всех остальных элементов
-    display: none; // Оверлей скрыт по умолчанию
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #c6c6ca;
+  z-index: 1000; // Выше всех остальных элементов
+  display: none; // Оверлей скрыт по умолчанию
 }
-    

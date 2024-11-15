@@ -1,14 +1,23 @@
-import styles from '@/components/UI/Buttons/DropdownButton/DropdownButton.module.scss';
-import { ButtonProps } from '@/Types/types';
+import styles from '@/components/UI/Buttons/DropdownButton/DropdownButton.module.scss'
+import { ButtonProps } from '@/Types/types'
 
-const DropdownButton: React.FC<ButtonProps> = ({ onClick, children, onMouseEnter, 
-  onMouseLeave  }) => {
+const DropdownButton: React.FC<ButtonProps> = ({
+  onClick,
+  children,
+  onMouseEnter,
+  onMouseLeave,
+}) => {
   return (
-    <button  type="button" className={styles.button} onClick={onClick} onMouseEnter={onMouseEnter}
-    onMouseLeave={onMouseLeave}>
+    <button
+      type="button"
+      className={styles.button}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default DropdownButton;
+export default DropdownButton

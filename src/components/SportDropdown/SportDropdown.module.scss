@@ -1,5 +1,5 @@
-@import "@/styles/_colors.scss";
-@import "@/styles/_base.scss";
+@import '@/styles/_colors.scss';
+@import '@/styles/_base.scss';
 
 .inputContainer {
   box-sizing: border-box;
@@ -156,7 +156,7 @@ label {
 .dropdown {
   position: absolute;
   // top: 114px;
-  top: 123px;
+  top: 124px;
   left: 0;
   width: 404px;
   background: var(--white);
@@ -164,6 +164,8 @@ label {
   border-radius: 4px;
   z-index: 1000;
   display: none;
+  border-left: none;
+  border-top: none;
 
   &.open {
     display: block;

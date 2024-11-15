@@ -1,8 +1,8 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react'
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import styles from "./Layout.module.scss";
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import styles from './Layout.module.scss'
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
@@ -11,7 +11,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       <main className={styles.main}>{children}</main>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

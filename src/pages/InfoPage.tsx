@@ -3,7 +3,7 @@ const Info = () => {
     <>
       <h1>Партнерам</h1>
     </>
-  );
-};
+  )
+}
 
-export default Info;
+export default Info

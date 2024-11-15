@@ -3,7 +3,7 @@ const Support = () => {
     <>
       <h1>Поддержка сайта</h1>
     </>
-  );
-};
+  )
+}
 
-export default Support;
+export default Support

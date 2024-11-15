@@ -1,47 +1,48 @@
-import styles from "./SportSectionItem.module.scss";
-import { useState } from "react";
-import swimmer from "../../assets/swimmer.jpeg";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setClubsVisibility } from "@/store/searchSlice";
+import styles from './SportSectionItem.module.scss'
+import { useState } from 'react'
+import swimmer from '../../assets/swimmer.jpeg'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { Link } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { setClubsVisibility } from '@/store/searchSlice'
 // import { ClubsVisibility } from "@/Types/types";
 //import { useAppSelector } from "@/hooks/redux";
 
-
 const SportSectionsItem = (item: {
   mockSportSectionItem: {
-    id: number;
-    src: string;
-    title: string;
-    name: string;
-    mapSrc: string;
-    category: string;
-    address: string;
-    phoneNumber: string;
-    sale: string;
-    free: string;
-    latitude: number;
-    longitude: number;
-    sport: { id: number; name: string };
-    distance: number;
-    clubId: number;
+    id: number
+    src: string
+    title: string
+    name: string
+    mapSrc: string
+    category: string
+    address: string
+    phoneNumber: string
+    sale: string
+    free: string
+    latitude: number
+    longitude: number
+    sport: { id: number; name: string }
+    distance: number
+    clubId: number
     // toggleClubVisibility: (clubId: number) => void;
-  };
+  }
 }) => {
-  const [parent] = useAutoAnimate();
+  const [parent] = useAutoAnimate()
   // const navigate = useNavigate();
-  const [isOpenPhone, setIsOpenPhone] = useState<boolean>(false);
-  const [isOpenCardDesc, setIsOpenCardDesc] = useState<boolean>(false);
-  const clubsVisibility = useAppSelector((state) => state.search.clubsVisibility);
-  const dispatch = useAppDispatch();
+  const [isOpenPhone, setIsOpenPhone] = useState<boolean>(false)
+  const [isOpenCardDesc, setIsOpenCardDesc] = useState<boolean>(false)
+  const clubsVisibility = useAppSelector(
+    (state) => state.search.clubsVisibility,
+  )
+  const dispatch = useAppDispatch()
   // const isVisible = clubsVisibility[item.mockSportSectionItem.id] || false;
   //скрытие метки при нажатии на глаз
   const toggleClubVisibility = (clubId: number) => {
     // setIsOpenCardDesc(!isOpenCardDesc);
-    dispatch(setClubsVisibility({ clubId, visible: !clubsVisibility[clubId] }));
-    setIsOpenCardDesc(!isOpenCardDesc);
-  };
+    dispatch(setClubsVisibility({ clubId, visible: !clubsVisibility[clubId] }))
+    setIsOpenCardDesc(!isOpenCardDesc)
+  }
 
   // const handleClick = () => {
   //   if (toggleClubVisibility) {
@@ -68,7 +69,12 @@ const SportSectionsItem = (item: {
               type="button"
               onClick={() => toggleClubVisibility(item.mockSportSectionItem.id)}
             >
-              <img src="/svg/Close-eye.svg" alt="close button" width={24} height={24} />
+              <img
+                src="/svg/Close-eye.svg"
+                alt="close button"
+                width={24}
+                height={24}
+              />
             </button>
             {/* <button
               className={styles.item__map_btn}
@@ -101,24 +107,26 @@ const SportSectionsItem = (item: {
             <img src={swimmer} alt="logo" width={197} height={160} />
 
             <div className={styles.item__info}>
-              <h3
-                className={styles.item__info_name}
-              >
-                 <Link to={`/club/${item.mockSportSectionItem.id}`}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className={styles.link} 
-                   >
+              <h3 className={styles.item__info_name}>
+                <Link
+                  to={`/club/${item.mockSportSectionItem.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.link}
+                >
                   {item.mockSportSectionItem.name}
                 </Link>
               </h3>
-              {item.mockSportSectionItem.distance && 
-                typeof item.mockSportSectionItem.distance === 'number' && 
+              {item.mockSportSectionItem.distance &&
+                typeof item.mockSportSectionItem.distance === 'number' &&
                 item.mockSportSectionItem.distance > 0 && (
-                  <p>{(item.mockSportSectionItem.distance / 1000).toFixed(1)} км от вашего адреса</p>
-              )}
+                  <p>
+                    {(item.mockSportSectionItem.distance / 1000).toFixed(1)} км
+                    от вашего адреса
+                  </p>
+                )}
               {/* <p>{(item.mockSportSectionItem.distance / 1000).toFixed(1)} км от вашего адреса</p> */}
-               {/* <p>{Math.round(item.mockSportSectionItem.distance)} м от вашего адреса</p> */}
+              {/* <p>{Math.round(item.mockSportSectionItem.distance)} м от вашего адреса</p> */}
               <p>{item.mockSportSectionItem.sport.name}</p>
               {/* <p>{Math.round(item.mockSportSectionItem.distance)} м</p> */}
               <p>{item.mockSportSectionItem.address}</p>
@@ -165,16 +173,16 @@ const SportSectionsItem = (item: {
             </button>
           </div>
           <div className={styles.container__sale}>
-             <p>Скидка по промокоду SportScan</p>
-            <p>Бесплатное пробное занятие</p>   
+            <p>Скидка по промокоду SportScan</p>
+            <p>Бесплатное пробное занятие</p>
             <div className={styles.container__sale__price}>
-               от 1500 ₽ за занятие
+              от 1500 ₽ за занятие
             </div>
-                   
           </div>
         </>
       )}
     </section>
-  )};
+  )
+}
 
-export default SportSectionsItem;
+export default SportSectionsItem

@@ -1,12 +1,11 @@
-import { useState } from "react";
-import type { Input } from "../../../Types/types";
+import { useState } from 'react'
+import type { Input } from '../../../Types/types'
 
-import List from "../List/List";
-import { useForm} from 'react-hook-form';
-import styles from "./Input.module.scss";
-import InputItem from "./Input";
-import {FormValues} from "../../../Types/types";
-
+import List from '../List/List'
+import { useForm } from 'react-hook-form'
+import styles from './Input.module.scss'
+import InputItem from './Input'
+import { FormValues } from '../../../Types/types'
 
 const InputBar = ({
   placeholder,
@@ -14,12 +13,12 @@ const InputBar = ({
   onChangeSearchInput,
   setSearchValue,
 }: Input) => {
-  const [openSelect, setOpenSelect] = useState(false);
-  const { control } = useForm<FormValues>();
+  const [openSelect, setOpenSelect] = useState(false)
+  const { control } = useForm<FormValues>()
   const onOpenSelect = (searchValue: string) => {
-    console.log(searchValue);
-    setOpenSelect(!openSelect);
-  };
+    console.log(searchValue)
+    setOpenSelect(!openSelect)
+  }
 
   return (
     <>
@@ -40,7 +39,7 @@ const InputBar = ({
               className={styles.clear}
               src="/icons/close.svg"
               alt="Clear"
-              onClick={() => setSearchValue("")}
+              onClick={() => setSearchValue('')}
             />
             <img
               className={styles.clear}
@@ -54,7 +53,7 @@ const InputBar = ({
       </div>
       {/* <div>{openSelect && <Select />}</div> */}
     </>
-  );
-};
+  )
+}
 
-export default InputBar;
+export default InputBar

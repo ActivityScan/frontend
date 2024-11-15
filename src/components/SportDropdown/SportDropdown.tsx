@@ -1,6 +1,6 @@
 // src/components/SportSelector.tsx
-import React, { useLayoutEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import React, { useLayoutEffect, useRef, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import {
   removeSports,
   selectAllSports,
@@ -9,104 +9,110 @@ import {
   setSuggestions,
   toggleAllSports,
   toggleSetSportSelector,
-} from "@/store/sportSlice";
-import styles from "./SportDropdown.module.scss";
+} from '@/store/sportSlice'
+import styles from './SportDropdown.module.scss'
 
-import { InputFieldProps } from "@/Types/types";
-import DropdownButton from "../UI/Buttons/DropdownButton/DropDownButton";
-import Menu from "../UI/Menu/Menu";
-import SubMenu from "../UI/Menu/Submenu";
+import { InputFieldProps } from '@/Types/types'
+import DropdownButton from '../UI/Buttons/DropdownButton/DropDownButton'
+import Menu from '../UI/Menu/Menu'
+import SubMenu from '../UI/Menu/Submenu'
 import getDisplayText, {
   extractCategoryName,
-} from "@/utils/getInputTextDisplay";
-import InputSports from "../UI/Input/InputSports";
-import { getAllForm } from "@/utils/getAllForm";
+} from '@/utils/getInputTextDisplay'
+import InputSports from '../UI/Input/InputSports'
+import { getAllForm } from '@/utils/getAllForm'
 
 const SportSelector: React.FC<InputFieldProps> = ({
   name,
   control,
-  rules,
-  ...props
+  // rules,
+  // ...props
 }) => {
-  const isOpen = useAppSelector((state) => state.sports.isOpen);
-  const selectorRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const subdropdownRef = useRef<HTMLDivElement>(null);
-  const inputContainerRef = useRef<HTMLDivElement>(null); // Ссылка на контейнер ввода
-  const dispatch = useAppDispatch();
+  const isOpen = useAppSelector((state) => state.sports.isOpen)
+  const selectorRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const subdropdownRef = useRef<HTMLDivElement>(null)
+  const inputContainerRef = useRef<HTMLDivElement>(null) // Ссылка на контейнер ввода
+  const dispatch = useAppDispatch()
   const { selectedSports, allSportsSelected, hoveredSport } = useAppSelector(
-    (state) => state.sports
-  );
+    (state) => state.sports,
+  )
 
   const [hoveredSportOnInput, setHoveredSportOnInput] = useState<string | null>(
-    null
-  );
-  const sports = useAppSelector((state) => state.search.sportTypes);
+    null,
+  )
+  const sports = useAppSelector((state) => state.search.sportTypes)
 
-  console.log(sports);
+  console.log(sports)
   // const displaySportSelectorText =
   //   selectedSports.length === 0 ? "Вид спорта" : selectedSports.join(", "); //перенос выбранных видов спорта в первый инпут
   const handleOnSportTextClick = (text: string) => {
-    console.log(text);
+    console.log(text)
     // Обработка клика на категорию.например, "Все водные виды спорта"
-    if (text.startsWith("Выбран")) {
-      const categoryName = extractCategoryName(text);
-      console.log(categoryName);
-      handleCategoryClick(categoryName);
-    } else if (text.startsWith("Все виды спорт")) {
+    if (text.startsWith('Выбран')) {
+      const categoryName = extractCategoryName(text)
+      console.log(categoryName)
+      handleCategoryClick(categoryName)
+    } else if (text.startsWith('Все виды спорт')) {
       // Обработка клика на все виды спорта
-      dispatch(selectSport('Все виды спорта'));
+      dispatch(selectSport('Все виды спорта'))
     } else {
       // Обработка клика на отдельный вид спорта
-      dispatch(selectSport(text));
+      dispatch(selectSport(text))
     }
-    setHoveredSportOnInput(null);
-  };
+    setHoveredSportOnInput(null)
+  }
   const getCategoryName = () => {
+    // @ts-ignore
     const category = sports.find((category) =>
-      category.sports.every((sport) => selectedSports.includes(sport.name))
-    );
+      // @ts-ignore
+      category.sports.every((sport) => selectedSports.includes(sport.name)),
+    )
     // return category ? `Все ${category.name} виды спорта` : selectedSports.join(", ");
     return category
       ? ` ${getAllForm(
-          category.name.toLowerCase()
+          category.name.toLowerCase(),
         )} ${category.name.toLowerCase()} `
-      : selectedSports;
-  };
+      : selectedSports
+  }
 
   const displaySportSelectorText =
-    selectedSports.length === 0 ? "Вид спорта" : getCategoryName();
+    selectedSports.length === 0 ? 'Вид спорта' : getCategoryName()
   const handleSportHover = (sport: string) => {
     // setHoveredSport(sport);
     // console.log(sport.name);
-    dispatch(setHoveredSport(sport));
-  };
+    dispatch(setHoveredSport(sport))
+  }
 
   const handleSportClick = (sport: string | { name: string }) => {
-    dispatch(selectSport(sport));
-  };
+    dispatch(selectSport(sport))
+  }
 
   const handleCategoryClick = (categoryName: string) => {
     // Найти все виды спорта в выбранной категории
-    const category = sports.find((cat) => cat.name === categoryName);
+    const category = sports.find(
+      (cat: { name: string }) => cat.name === categoryName,
+    )
     if (category) {
-      const sportNames = category.sports.map((sport) => sport.name);
+      const sportNames = category.sports.map(
+        (sport: { name: string }) => sport.name,
+      )
       // Удалить все виды спорта этой категории из стора
-      dispatch(removeSports(sportNames));
+      dispatch(removeSports(sportNames))
     }
-  };
+  }
 
   const handleSelectAllSports = () => {
-    dispatch(toggleAllSports());
-  };
+    dispatch(toggleAllSports())
+  }
 
   const getDisplayTextWithHover = () => {
-    const displayText = getDisplayText(selectedSports, sports); // Генерируем строку для отображения с помощью функции getDisplayText
+    const displayText = getDisplayText(selectedSports, sports) // Генерируем строку для отображения с помощью функции getDisplayText
 
     return displayText.map((text: string, index: number) => (
       <div
         key={index}
-        className={`${hoveredSportOnInput === text ? styles.hovered : ""} ${
+        className={`${hoveredSportOnInput === text ? styles.hovered : ''} ${
           styles.sportItem
         }`}
         onMouseEnter={() => setHoveredSportOnInput(text)}
@@ -116,8 +122,8 @@ const SportSelector: React.FC<InputFieldProps> = ({
       >
         {text}
       </div>
-    ));
-  };
+    ))
+  }
 
   useLayoutEffect(() => {
     if (
@@ -127,15 +133,15 @@ const SportSelector: React.FC<InputFieldProps> = ({
       subdropdownRef.current
     ) {
       const inputContainerRect =
-        inputContainerRef.current.getBoundingClientRect();
+        inputContainerRef.current.getBoundingClientRect()
       dropdownRef.current.style.top = `${
         inputContainerRect.height * 1.24 + 47
-      }px`; // Position dropdown below inputContainer
+      }px` // Position dropdown below inputContainer
       subdropdownRef.current.style.top = `${
         inputContainerRect.height * 1.24 + 47
-      }px`;
+      }px`
     }
-  }, [isOpen, selectedSports.length]);
+  }, [isOpen, selectedSports.length])
 
   useLayoutEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -143,29 +149,31 @@ const SportSelector: React.FC<InputFieldProps> = ({
         selectorRef.current &&
         !selectorRef.current.contains(event.target as Node)
       ) {
-        dispatch(toggleSetSportSelector({ isOpen: false }));
-        dispatch(setSuggestions([]));
+        dispatch(toggleSetSportSelector({ isOpen: false }))
+        dispatch(setHoveredSport(null))
+        dispatch(setSuggestions([]))
       }
-    };
+    }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [dispatch]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [dispatch])
 
   // console.log(allSportsSelected);
-  console.log(selectedSports);
+  console.log(selectedSports)
   // const handleSelectAll = (parentSport: string) => {
   //   const sportsToAdd = sports[parentSport] || [];
   //   dispatch(selectAllSports({ parentSport, sports: sportsToAdd }));
   // };
 
   const handleSelectAll = (
+    // @ts-ignore
     hoveredSport,
-    sportsToAdd: Array<{ id: string; name: string }>
+    sportsToAdd: Array<{ id: string; name: string }>,
   ) => {
-    const selectedSportNames = sportsToAdd.map((sport) => sport.name);
+    const selectedSportNames = sportsToAdd.map((sport) => sport.name)
     // dispatch(selectAllSports({ parentSport: parentSport.name?, sports: selectedSportNames }));
     if (hoveredSport?.name) {
       // Если имя родительского спорта существует, отправляем его и список выбранных видов спорта
@@ -173,18 +181,18 @@ const SportSelector: React.FC<InputFieldProps> = ({
         selectAllSports({
           parentSport: hoveredSport.name,
           sports: selectedSportNames,
-        })
-      );
+        }),
+      )
     } else {
       // Если имени нет, отправляем только родительский спорт без имени
       dispatch(
         selectAllSports({
           parentSport: hoveredSport,
           sports: selectedSportNames,
-        })
-      );
+        }),
+      )
     }
-  };
+  }
 
   // const handleCloseSelectSports = () => {
   //   dispatch(toggleSetSportSelector({ isOpen: false }));
@@ -192,12 +200,12 @@ const SportSelector: React.FC<InputFieldProps> = ({
 
   return (
     <div className={styles.container} ref={selectorRef}>
-    
+      {/*     
      
-     {/* {location.pathname === "/searchresults" && isOpen && (
+     {location.pathname === "/searchresults" && isOpen && (
         <div className={styles.overlay} />
       )} */}
-      
+
       <div
         className={isOpen ? styles.sportSelectorActive : styles.sportSelector}
       >
@@ -212,50 +220,36 @@ const SportSelector: React.FC<InputFieldProps> = ({
         {isOpen && (
           <div className={styles.inputContainer} ref={inputContainerRef}>
             <InputSports
-              // onClick={toggleDropdown}
               id="sport-input"
               type="text"
               placeholder="Начните вводить"
               // readOnly
               className={styles.sportSelector__input}
-              // onClick={() => setIsOpen(!isOpen)}
               control={control}
               name={name}
-              // value={
-              //   allSportsSelected
-              //     ? "Все виды спорта"
-              //     // : displaySportSelectorText
-              //     : getDisplayText(selectedSports,sports)
-              // }
               value={
                 selectedSports.length === 0
-                  ? "Вид спорта"
-                  : getDisplayText(selectedSports, sports).join(", ")
+                  ? 'Вид спорта'
+                  : getDisplayText(selectedSports, sports).join(', ')
               }
               children={getDisplayTextWithHover()}
-              // field={field}
-              // value={allSportsSelected ? 'Все виды спорта' : selectedSports.join(', ')}
-              // onRemove={handleRemoveSport}// Отображаем выбранные виды спорта
-              // onSearch={handleSearch}
-              // suggestions={suggestions}
-              // onSuggestionSelect={handleSportClick}
             />
           </div>
         )}
 
         {isOpen && (
-          // <div className={`${styles.dropdown} ${isOpen ? styles.open : ''}`}>
           <div
             ref={dropdownRef} // Добавляем ссылку на дропдаун
-            className={`${styles.dropdown} ${isOpen ? styles.open : ""} ${
-              allSportsSelected ? styles.disabled : ""
+            className={`${styles.dropdown} ${isOpen ? styles.open : ''} ${
+              allSportsSelected ? styles.disabled : ''
             }`}
           >
             <div className={styles.dropdown__menu}>
               <DropdownButton onClick={handleSelectAllSports}>
-                {" "}
-                {allSportsSelected ? "Отменить выбор" : "Выбрать все"}
+                {' '}
+                {allSportsSelected ? 'Отменить выбор' : 'Выбрать все'}
               </DropdownButton>
+
               <Menu
                 // items={Object.keys(sports)}
                 onHover={handleSportHover}
@@ -272,8 +266,10 @@ const SportSelector: React.FC<InputFieldProps> = ({
           hoveredSport.sports.length > 0 &&
           isOpen && (
             <SubMenu
+              // @ts-ignore
               ref={subdropdownRef}
               parentSport={hoveredSport}
+              // @ts-ignore
               items={hoveredSport.sports.map((subSport) => ({
                 id: subSport.id,
                 name: subSport.name,
@@ -282,6 +278,7 @@ const SportSelector: React.FC<InputFieldProps> = ({
               // onClick={handleSubSportClick}
               onClick={handleSportClick}
               selectedItems={selectedSports}
+              // @ts-ignore
               onSelectAll={handleSelectAll}
               disabled={allSportsSelected}
               // onSelectAll={() => {}}
@@ -289,7 +286,7 @@ const SportSelector: React.FC<InputFieldProps> = ({
           )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SportSelector;
+export default SportSelector

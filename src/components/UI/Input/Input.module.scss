@@ -1,6 +1,6 @@
-@import "@/styles/_mixins.scss";
-@import "@/styles/_colors.scss";
-@import "@/styles/_base.scss";
+@import '@/styles/_mixins.scss';
+@import '@/styles/_colors.scss';
+@import '@/styles/_base.scss';
 
 .searchBlock {
   position: relative;
@@ -54,14 +54,14 @@
   color: $dark-blue;
   position: relative;
 
-  &[type="number"]::-webkit-outer-spin-button,
-  &[type="number"]::-webkit-inner-spin-button {
+  &[type='number']::-webkit-outer-spin-button,
+  &[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
 
   /* Убираем стрелки для Firefox */
-  &[type="number"] {
+  &[type='number'] {
     -moz-appearance: textfield;
     appearance: textfield;
   }
@@ -72,6 +72,7 @@
 
   &::placeholder {
     @extend .input-font;
+    // color: $grey-text;
   }
 
   &:hover::before {

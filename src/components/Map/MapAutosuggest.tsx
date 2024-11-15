@@ -1,161 +1,174 @@
-import { useRef, useState } from "react";
-import "ol/ol.css";
-import axios from "axios";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// @ts-nocheck
+import { useRef, useState } from 'react'
+import 'ol/ol.css'
+import axios from 'axios'
 import Autosuggest, {
   SuggestionsFetchRequestedParams,
   SuggestionSelectedEventData,
-} from "react-autosuggest";
-import styles from "./AutoSuggest.module.scss";
-import { useDispatch } from "react-redux";
-import { setAddressError,  setAutosuggestOpen,  setCoordinates, setUserAddress } from "@/store/searchSlice";
-import { InputFieldProps, Suggestion } from "@/Types/types";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { on } from "events";
+} from 'react-autosuggest'
+import styles from './AutoSuggest.module.scss'
+import {
+  setAddressError,
+  setAutosuggestOpen,
+  setCoordinates,
+  setUserAddress,
+} from '@/store/searchSlice'
+import { InputFieldProps, Suggestion } from '@/Types/types'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux'
 
 // Определяем начальные координаты
-const initialCoordinates: [number, number] = [30.3158, 59.9343]; // Невский пр. 30
+const initialCoordinates: [number, number] = [30.3158, 59.9343] // Невский пр. 30
 
 const MapAutosuggest: React.FC<InputFieldProps> = ({ control, ...props }) => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const mapRef = useRef<HTMLDivElement>(null)
+  const [suggestions, setSuggestions] = useState<string[]>([])
   // const [addressError, setAddressError] = useState<boolean | null>(false);
   const [userCoordinates, setUserCoordinates] =
-    useState<[number, number]>(initialCoordinates);
-  const dispatch = useAppDispatch();
-  const address = useAppSelector((state) => state.search.address);
-  const addressError = useAppSelector((state) => state.search.addressError);  
-  const isAutosuggestOpen = useAppSelector((state) => state.search.isAutosuggestOpen);
+    useState<[number, number]>(initialCoordinates)
+  const dispatch = useAppDispatch()
+  const address = useAppSelector((state) => state.search.address)
+  const addressError = useAppSelector((state) => state.search.addressError)
+  const isAutosuggestOpen = useAppSelector(
+    (state) => state.search.isAutosuggestOpen,
+  )
 
   const handleAddressChange = (
+    // @ts-ignore
     event: React.ChangeEvent<HTMLInputElement>,
-    { newValue }: { newValue: string }
+    { newValue }: { newValue: string },
   ) => {
-
     if (newValue.length <= 255) {
-      dispatch(setUserAddress(newValue));
-      dispatch(setAddressError(false));//обнуляем ошибку адреса при очищении поля
+      dispatch(setUserAddress(newValue))
+      dispatch(setAddressError(false)) //обнуляем ошибку адреса при очищении поля
     }
     // dispatch(setUserAddress(newValue));
-  };
+  }
   const handleSuggestionsFetchRequested = async ({
     value,
   }: SuggestionsFetchRequestedParams) => {
-  
     if (value.length > 1) {
       // dispatch(setAutosuggestOpen({ isAutosuggestOpen: !isAutosuggestOpen }));
       try {
-        console.log(value);
-        
+        console.log(value)
+
         console.log(addressError)
         const response = await axios.get<{ features: any[] }>(
-          `http://62.113.111.95:2322/api/?q=${value}&limit=5`
-        );
-        console.log(response.data);
+          `http://62.113.111.95:2322/api/?q=${value}&limit=5`,
+        )
+        console.log(response.data)
 
-        const features = response.data.features;
+        const features = response.data.features
         if (features.length === 0 || features.length > 1) {
-          console.log("Адрес не найден.");
+          console.log('Адрес не найден.')
           // setSuggestions([]);
-         dispatch(setAddressError(true));  
-        }  
+          dispatch(setAddressError(true))
+        }
 
         const formattedSuggestions = features.map((feature) => {
-          const city = feature.properties.city || "";
-          const district = feature.properties.state || "";
+          const city = feature.properties.city || ''
+          const district = feature.properties.state || ''
 
           // Проверка: если город и район совпадают, оставляем только город
           const displayLocation =
-            city === district ? city : `${city} ${district}`;
+            city === district ? city : `${city} ${district}`
 
           return {
-            name: feature.properties.label || "",
-            organization: feature.properties.name || "",
+            name: feature.properties.label || '',
+            organization: feature.properties.name || '',
             city: displayLocation,
-            street: feature.properties.street || "",
-            housenumber: feature.properties.housenumber || "",
+            street: feature.properties.street || '',
+            housenumber: feature.properties.housenumber || '',
             // district: district,
             coordinates: feature.geometry.coordinates, // Координаты
-          };
-        });
-
-        setSuggestions(formattedSuggestions);
+          }
+        })
+        // @ts-ignore
+        setSuggestions(formattedSuggestions)
 
         // onSuggestionsFetchRequested({ value: newValue });
       } catch (error) {
-        console.log("Ошибка при получении вариантов адресов", error);
-        setSuggestions([]);
+        console.log('Ошибка при получении вариантов адресов', error)
+        setSuggestions([])
       }
     } else {
-      setSuggestions([]);
+      setSuggestions([])
       // onSuggestionsFetchRequested({ value: '' });
     }
-  };
+  }
 
   const handleSuggestionSelected = (
+    // @ts-ignore
     event: React.SyntheticEvent,
-    { suggestion }: SuggestionSelectedEventData<any>
+    { suggestion }: SuggestionSelectedEventData<any>,
   ) => {
-    console.log(suggestion);
+    console.log(suggestion)
     // if (!suggestion.coordinates || suggestion.name === "") {
     //   console.log("Адрес не найден.");
     //   return;
     // }
     const newAddress =
       suggestion.city +
-      " " +
+      ' ' +
       suggestion.organization +
-      " " +
+      ' ' +
       suggestion.street +
-      " " +
-      suggestion.housenumber;
+      ' ' +
+      suggestion.housenumber
 
-    console.log(suggestion);
+    console.log(suggestion)
 
     // setAddress(newAddress);
-    dispatch(setUserAddress(newAddress));
+    dispatch(setUserAddress(newAddress))
+    dispatch(setAutosuggestOpen({ isAutosuggestOpen: false }))
     const lonLat: [number, number] = suggestion.coordinates.map(
-      (coord: number) => parseFloat(coord.toFixed(4))
-    );
-    console.log(lonLat);
-    dispatch(setAutosuggestOpen({ isAutosuggestOpen: !isAutosuggestOpen }));
-    setUserCoordinates(lonLat);
-    dispatch(setCoordinates({ longitude: lonLat[1], latitude: lonLat[0] }));
+      (coord: number) => parseFloat(coord.toFixed(4)),
+    )
+    console.log(lonLat)
+    dispatch(setAutosuggestOpen({ isAutosuggestOpen: !isAutosuggestOpen }))
+    setUserCoordinates(lonLat)
+    console.log(userCoordinates)
+    dispatch(setCoordinates({ longitude: lonLat[1], latitude: lonLat[0] }))
     // Установка центра карты
     // map?.getView().setCenter(fromLonLat(lonLat));
     // map?.getView().setZoom(15);
-  };
+  }
 
-  const getSuggestionValue = (suggestion: Suggestion) => suggestion.housenumber; // Используем название объекта
+  const getSuggestionValue = (suggestion: Suggestion): string =>
+    suggestion.housenumber || '' // Используем название объекта
 
-  const renderSuggestion = (suggestion: Suggestion) => (
+  const renderSuggestion = (suggestion: Suggestion): JSX.Element => (
     <div>
-      {suggestion.city} {suggestion.housenumber} {suggestion.street}{" "}
-      {suggestion.district} {suggestion.organization}{" "}
+      {suggestion.city} {suggestion.housenumber} {suggestion.street}{' '}
+      {suggestion.district} {suggestion.organization}{' '}
       {/* Отображаем название, город и область */}
     </div>
-  );
+  )
   // interface InputProps {
   //   placeholder: string;
   //   value: string;
   //   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   // }
   const inputProps = {
-    placeholder: "Ваш адрес",
-    value: address || "",
+    placeholder: 'Ваш адрес',
+    value: address || '',
     onChange: handleAddressChange,
     // // className: 'inputAutoSuggest'
     className: styles.inputAutosuggest,
-    onFocus: () => dispatch(setAutosuggestOpen({ isAutosuggestOpen: !isAutosuggestOpen })),
-  };
+    onFocus: () => dispatch(setAutosuggestOpen({ isAutosuggestOpen: true })),
+  }
   //   const updatedInputProps = {
   //     ...inputProps,
   //     className: styles.inputAutosuggest, // Здесь задаем ваш класс
   // };
+  const handleClick = () => {
+    dispatch(setAutosuggestOpen({ isAutosuggestOpen: !isAutosuggestOpen }))
+  }
 
   return (
     <>
       <div className={styles.autosuggest}>
-  
         <Autosuggest
           // className={styles.autosuggest_container}
           control={control}
@@ -166,6 +179,8 @@ const MapAutosuggest: React.FC<InputFieldProps> = ({ control, ...props }) => {
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
+          // onFocus={handleClick}
+          onBlur={handleClick}
           // value={address}
           // inputProps={updatedInputProps}
           onSuggestionSelected={handleSuggestionSelected}
@@ -180,9 +195,7 @@ const MapAutosuggest: React.FC<InputFieldProps> = ({ control, ...props }) => {
           {...props}
         />
         {addressError && (
-          <div className={styles.error}>
-            Данный адрес не найден  
-          </div>
+          <div className={styles.error}>Данный адрес не найден</div>
         )}
       </div>
       <div
@@ -190,14 +203,14 @@ const MapAutosuggest: React.FC<InputFieldProps> = ({ control, ...props }) => {
         ref={mapRef}
         style={{
           // width: "4px",
-          display: "none",
-          backgroundColor: "transparent",
+          display: 'none',
+          backgroundColor: 'transparent',
           // height: '600px',
           // textAlign: 'initial',
         }}
       />
     </>
-  );
-};
+  )
+}
 
-export default MapAutosuggest;
+export default MapAutosuggest

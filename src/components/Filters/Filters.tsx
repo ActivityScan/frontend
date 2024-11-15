@@ -1,12 +1,12 @@
-import styles from "./Filters.module.scss";
-import { useState } from "react";
+import styles from './Filters.module.scss'
+import { useState } from 'react'
 
 const Filters = () => {
-  const [activeButton, setActiveButton] = useState<string | null>("left");
+  const [activeButton, setActiveButton] = useState<string | null>('left')
 
   const handleButtonClick = (button: string) => {
-    setActiveButton(button);
-  };
+    setActiveButton(button)
+  }
 
   return (
     <section className={styles.container}>
@@ -17,24 +17,24 @@ const Filters = () => {
         <section className={styles.content}>
           <div
             className={
-              activeButton === "left"
+              activeButton === 'left'
                 ? `${styles.content_active}`
                 : `${styles.content_inactive}`
             }
-            onClick={() => handleButtonClick("left")}
+            onClick={() => handleButtonClick('left')}
           >
             ...общие
-            {activeButton === "left" && (
+            {activeButton === 'left' && (
               <div className={styles.content__left}>
                 <div>
                   <p>Цена за занятие, ₽</p>
                   <div>
-                    от{" "}
+                    от{' '}
                     <input
                       className={styles.content__left_input}
                       type="number"
-                    />{" "}
-                    до{" "}
+                    />{' '}
+                    до{' '}
                     <input
                       className={styles.content__left_input}
                       type="number"
@@ -65,17 +65,17 @@ const Filters = () => {
                       <input
                         type="radio"
                         name="radio-left"
-                        value={"radio-left-1"}
-                      />{" "}
+                        value={'radio-left-1'}
+                      />{' '}
                       Обязательно
                     </div>
                     <data>
                       <input
                         type="radio"
                         name="radio-left"
-                        value={"radio-left-2"}
+                        value={'radio-left-2'}
                         defaultChecked
-                      />{" "}
+                      />{' '}
                       Не важно
                     </data>
                   </div>
@@ -96,24 +96,24 @@ const Filters = () => {
           </div>
           <div
             className={
-              activeButton === "right"
+              activeButton === 'right'
                 ? `${styles.content_active}`
                 : `${styles.content_inactive}`
             }
-            onClick={() => handleButtonClick("right")}
+            onClick={() => handleButtonClick('right')}
           >
             ...для плавания
-            {activeButton === "right" && (
+            {activeButton === 'right' && (
               <div className={styles.content__right}>
                 <div>
                   <p>Длина дорожки, м</p>
                   <div>
-                    от{" "}
+                    от{' '}
                     <input
                       className={styles.content__right_input}
                       type="number"
-                    />{" "}
-                    до{" "}
+                    />{' '}
+                    до{' '}
                     <input
                       className={styles.content__right_input}
                       type="number"
@@ -142,17 +142,17 @@ const Filters = () => {
                       <input
                         type="radio"
                         name="radio-right"
-                        value={"radio-right-1"}
-                      />{" "}
+                        value={'radio-right-1'}
+                      />{' '}
                       Обязательно
                     </div>
                     <data>
                       <input
                         type="radio"
                         name="radio-right"
-                        value={"radio-right-2"}
+                        value={'radio-right-2'}
                         defaultChecked
-                      />{" "}
+                      />{' '}
                       Не важно
                     </data>
                   </div>
@@ -174,7 +174,7 @@ const Filters = () => {
         </section>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Filters;
+export default Filters

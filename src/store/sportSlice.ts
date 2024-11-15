@@ -1,6 +1,6 @@
-import { SportsState } from "@/Types/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { resetFilters } from "./searchSlice";
+import { SportsState } from '@/Types/types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { resetFilters } from './searchSlice'
 
 export const initialState: SportsState = {
   selectedSports: [],
@@ -11,14 +11,14 @@ export const initialState: SportsState = {
   isAllParentSportsSelected: false,
   // loading: false,
   isOpen: false,
-};
+}
 
 const sportSlice = createSlice({
-  name: "sports",
+  name: 'sports',
   initialState,
   reducers: {
     toggleSetSportSelector(state, action: PayloadAction<{ isOpen: boolean }>) {
-      state.isOpen = action.payload.isOpen;
+      state.isOpen = action.payload.isOpen
     },
     // selectSport: (state, action: PayloadAction<string>) => {
     //   const sport = action.payload;
@@ -33,38 +33,38 @@ const sportSlice = createSlice({
     // },
     selectSport: (state, action: PayloadAction<{ name: string } | string>) => {
       const sport =
-        typeof action.payload === "string"
+        typeof action.payload === 'string'
           ? action.payload
-          : action.payload.name;
-      const index = state.selectedSports.indexOf(sport);
+          : action.payload.name
+      const index = state.selectedSports.indexOf(sport)
       if (index > -1) {
-        state.selectedSports.splice(index, 1);
+        state.selectedSports.splice(index, 1)
       } else {
-        state.selectedSports.push(sport);
+        state.selectedSports.push(sport)
       }
-      state.allSportsSelected = false;
-      console.log(JSON.stringify(state.selectedSports));
+      state.allSportsSelected = false
+      console.log(JSON.stringify(state.selectedSports))
     },
     toggleAllSports: (state) => {
-      state.allSportsSelected = !state.allSportsSelected;
-      state.selectedSports = state.allSportsSelected ? ["Все виды спорта"] : [];
+      state.allSportsSelected = !state.allSportsSelected
+      state.selectedSports = state.allSportsSelected ? ['Все виды спорта'] : []
     },
     setHoveredSport: (state, action: PayloadAction<string | null>) => {
-      state.hoveredSport = action.payload;
+      state.hoveredSport = action.payload
     },
     setSuggestions: (state, action: PayloadAction<string[]>) => {
-      state.suggestions = action.payload;
+      state.suggestions = action.payload
     },
     removeSports: (state, action: PayloadAction<string[]>) => {
-      const sportNamesToRemove = action.payload;
+      const sportNamesToRemove = action.payload
       // Фильтруем selectedSports, удаляя из него все виды спорта, которые есть в sportNamesToRemove
       state.selectedSports = state.selectedSports.filter(
-        (sport) => !sportNamesToRemove.includes(sport)
-      );
+        (sport) => !sportNamesToRemove.includes(sport),
+      )
 
       // Если были удалены все виды спорта, сбрасываем флаг allSportsSelected
-      if (sportNamesToRemove.includes("Все виды спорта")) {
-        state.allSportsSelected = false;
+      if (sportNamesToRemove.includes('Все виды спорта')) {
+        state.allSportsSelected = false
       }
     },
     // removeSport: (state, action: PayloadAction<string>) => {
@@ -81,32 +81,32 @@ const sportSlice = createSlice({
     // },
     selectAllSports: (
       state,
-      action: PayloadAction<{ parentSport: string; sports: string[] }>
+      action: PayloadAction<{ parentSport: string; sports: string[] }>,
     ) => {
       const {
         // parentSport,
         sports,
-      } = action.payload;
+      } = action.payload
 
       sports.forEach((sport) => {
         if (!state.selectedSports.includes(sport)) {
-          state.selectedSports.push(sport);
+          state.selectedSports.push(sport)
         }
-      });
+      })
       // state.isAllParentSportsSelected = !state.isAllParentSportsSelected
       //     console.log(state.isAllParentSportsSelected)
     },
     selectAllParentSports: (state) => {
-      state.isAllParentSportsSelected = !state.isAllParentSportsSelected;
-      console.log(state.isAllParentSportsSelected);
+      state.isAllParentSportsSelected = !state.isAllParentSportsSelected
+      console.log(state.isAllParentSportsSelected)
     },
   },
   extraReducers: (builder) => {
     builder.addCase(resetFilters, (state) => {
-      state.selectedSports = []; // Сброс конкретного поля в этом слайсе
-    });
-  }
-});
+      state.selectedSports = [] // Сброс конкретного поля в этом слайсе
+    })
+  },
+})
 
 export const {
   selectSport,
@@ -117,6 +117,6 @@ export const {
   selectAllSports,
   selectAllParentSports,
   toggleSetSportSelector,
-} = sportSlice.actions;
+} = sportSlice.actions
 
-export default sportSlice.reducer;
+export default sportSlice.reducer

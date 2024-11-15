@@ -60,18 +60,18 @@ h3 {
 
     &_info {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      max-width: 629px;
+      grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(6, min-content);
       align-items: start;
       gap: 5px 20px;
 
       &_name {
         display: flex;
-        grid-column: span 3;
+        grid-column: span 2;
         align-items: start;
         gap: 12px;
         text-align: left;
-        justify-content: space-between;
 
         &_title {
           margin: 0;
@@ -175,6 +175,7 @@ h3 {
           font-weight: 500;
           color: var(--dark-blue);
           background-color: var(--white);
+          user-select: all;
         }
 
         & p {
@@ -219,22 +220,24 @@ h3 {
       text-underline-offset: 5px;
       color: var(--accent-blue);
       cursor: pointer;
+      margin-bottom: 18px;
     }
 
     &_info {
       max-height: 192px;
       padding: 0 24px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       font-size: 16px;
       text-align: left;
       margin: 0;
-      color: #828282;
+      color: var(--dark-blue);
       line-height: 24px;
       padding: 16px 23px;
       background-color: #fcfaf9;
-      border-top: 1px solid #d8e1e7;
-      border-bottom: 1px solid #d8e1e7;
+      border-top: 2px solid #adcde5;
+      border-bottom: 2px solid #adcde5;
     }
 
     &_block {
@@ -270,42 +273,45 @@ h3 {
     }
   }
 
-  img[src="/icons/google.svg"] {
+  img[src='/icons/google.svg'] {
     &:hover {
-      content: url("/icons/google_hover.svg");
+      content: url('/icons/google_hover.svg');
     }
   }
-  img[src="/icons/website.svg"] {
+  img[src='/icons/website.svg'] {
     &:hover {
-      content: url("/icons/website_hover.svg");
+      content: url('/icons/website_hover.svg');
     }
   }
-  img[src="/icons/whatsapp.svg"] {
+  img[src='/icons/whatsapp.svg'] {
     &:hover {
-      content: url("/icons/whatsapp_hover.svg");
+      content: url('/icons/whatsapp_hover.svg');
     }
   }
-  img[src="/icons/youtube.svg"] {
+  img[src='/icons/youtube.svg'] {
     &:hover {
-      content: url("/icons/youtube_hover.svg");
+      content: url('/icons/youtube_hover.svg');
     }
   }
-  img[src="/icons/vk.svg"] {
+  img[src='/icons/vk.svg'] {
     &:hover {
-      content: url("/icons/vk_hover.svg");
+      content: url('/icons/vk_hover.svg');
     }
   }
-  img[src="/icons/telegram.svg"] {
+  img[src='/icons/telegram.svg'] {
     &:hover {
-      content: url("/icons/telegram_hover.svg");
+      content: url('/icons/telegram_hover.svg');
     }
   }
 
   &__buttons {
     display: flex;
+    max-width: 989px;
     gap: 56px;
     height: 32px;
     margin-bottom: 24px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #045e9e;
 
     &_btn {
       background-color: transparent;
@@ -405,16 +411,24 @@ h3 {
           color: #041129;
           font-size: 16px;
           display: flex;
-          gap: 16px;
+          gap: 8px;
           align-items: start;
+
+          & img {
+            margin-right: 8px;
+          }
         }
 
         &_listCenter {
           color: #041129;
           font-size: 16px;
           display: flex;
-          gap: 16px;
+          gap: 8px;
           align-items: center;
+
+          & img {
+            margin-right: 8px;
+          }
         }
 
         &_title {

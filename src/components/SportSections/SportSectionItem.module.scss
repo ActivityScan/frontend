@@ -9,7 +9,7 @@
   margin-bottom: 24px;
   max-width: 628px;
   gap: 16px;
-  border-bottom: 1px solid #ADCDE5;
+  border-bottom: 1px solid #adcde5;
   &__sale {
     position: relative;
     display: flex;
@@ -20,22 +20,24 @@
     height: 100%;
     gap: 8px;
     margin-bottom: 20px;
-    &__price{
+    &__price {
       position: absolute;
       right: 30px;
       bottom: 0px;
-      
-       }
+    }
     & p {
       margin: 0;
       color: var(--accent-blue);
       font-size: 20px;
       font-weight: bold;
-    }}
+    }
+  }
 
-  & p,h3 {
+  & p,
+  h3 {
     margin: 0;
-  }}
+  }
+}
 
 .item {
   display: flex;
@@ -57,7 +59,7 @@
     &_name {
       cursor: pointer;
       text-align: start;
-      // text-decoration: none; 
+      // text-decoration: none;
       // color: var(--accent-blue);
     }
   }

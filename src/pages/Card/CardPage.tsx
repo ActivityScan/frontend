@@ -1,75 +1,68 @@
-import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useEffect,
-  useState,
-} from "react";
-import styles from "./CardPage.module.scss";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchClubInfoById } from "@/utils/api";
-import Spinner from "@/components/Spinner/Spinner";
-import { AppDispatch, RootState } from "@/store";
-import { UnknownAction } from "@reduxjs/toolkit";
-import { setChosenClubCoordinates } from "@/store/clubSlice";
-import MapForCard from "@/components/Map/MapForCard";
-import SocialListItem from "./components/SocialListItem";
-import getWordForm from "@/utils/getAllClubCountWordForm";
+import { Key, useEffect, useState } from 'react'
+import styles from './CardPage.module.scss'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchClubInfoById } from '@/utils/api'
+import Spinner from '@/components/Spinner/Spinner'
+import { AppDispatch, RootState } from '@/store'
+import { UnknownAction } from '@reduxjs/toolkit'
+import { setChosenClubCoordinates } from '@/store/clubSlice'
+import MapForCard from '@/components/Map/MapForCard'
+import SocialListItem from './components/SocialListItem'
+import getWordForm from '@/utils/getAllClubCountWordForm'
+import NotFound from '@/components/Not-Found/NotFound'
 
 const Card = () => {
-  const [isOpenPhone, setIsOpenPhone] = useState(false);
-  const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
-  const [isOpenSeasonTicket, setIsOpenSeasonTicket] = useState(false);
-  const [isOpenMap, setIsOpenMap] = useState(false);
+  const [isOpenPhone, setIsOpenPhone] = useState(false)
+  const [isBackButtonVisible, setIsBackButtonVisible] = useState(false)
+  const [isOpenSeasonTicket, setIsOpenSeasonTicket] = useState(false)
+  const [isOpenMap, setIsOpenMap] = useState(false)
 
   // const clubsList = useAppSelector(clubs);
   // const { clubId } = useParams();
-  const dispatch = useDispatch<AppDispatch>();
-  const club = useSelector((state: RootState) => state.club.data); //поля о клубе берем тут!
-  console.log(club);
-  const loading = useSelector((state: RootState) => state.club.loading);
-  const error = useSelector((state: RootState) => state.club.error);
-  const latitude = useSelector((state: RootState) => state.search.latitude);
-  const longitude = useSelector((state: RootState) => state.search.longitude);
+  const dispatch = useDispatch<AppDispatch>()
+  const club = useSelector((state: RootState) => state.club.data) //поля о клубе берем тут!
+  console.log(club)
+  const loading = useSelector((state: RootState) => state.club.loading)
+  const error = useSelector((state: RootState) => state.club.error)
+  const latitude = useSelector((state: RootState) => state.search.latitude)
+  const longitude = useSelector((state: RootState) => state.search.longitude)
   // const [userDistance, setUserDistance] = useState<number | null>(null);
-  const { clubId: clubIdFromUrl } = useParams();
+  const { clubId: clubIdFromUrl } = useParams()
 
-  console.log(latitude, longitude);
+  console.log(latitude, longitude)
   // Проверяем, есть ли clubId в хранилище и, если нет, берем его из URL
-  const clubId = club?.id || clubIdFromUrl;
+  const clubId = club?.id || clubIdFromUrl
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition =
-        window.scrollY || document.documentElement.scrollTop;
+        window.scrollY || document.documentElement.scrollTop
       if (scrollPosition >= 300) {
-        setIsBackButtonVisible(true);
+        setIsBackButtonVisible(true)
       } else {
-        setIsBackButtonVisible(false);
+        setIsBackButtonVisible(false)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   useEffect(() => {
     if (clubId && !club) {
-      dispatch(fetchClubInfoById(Number(clubId)) as unknown as UnknownAction); // запрашиваем данные о клубе по ID
+      dispatch(fetchClubInfoById(Number(clubId)) as unknown as UnknownAction) // запрашиваем данные о клубе по ID
     }
     dispatch(
       setChosenClubCoordinates({
         longitude: club?.longitude,
         latitude: club?.latitude,
-      })
-    ); // сохраняем полученные координаты клуба для карты
-  }, [clubId, dispatch, club]);
+      }),
+    ) // сохраняем полученные координаты клуба для карты
+  }, [clubId, dispatch, club])
 
   // useEffect(() => {
   //   if (club && latitude !== null && longitude !== null) {
@@ -88,15 +81,21 @@ const Card = () => {
       <div>
         <Spinner />
       </div>
-    ); // Показываем спиннер
-  if (error) return <div>Error: {error}</div>;
+    ) // Показываем спиннер
+  // if (error) return <div>Error: {error}</div>;
+  if (error)
+    return (
+      <div>
+        <NotFound />
+      </div>
+    )
 
   return (
     <div className={styles.container}>
       <section className={styles.card} id="home">
         <button
           className={`${styles.card__back_button} ${
-            isBackButtonVisible ? styles.visible : ""
+            isBackButtonVisible ? styles.visible : ''
           }`}
           type="button"
           onClick={() => window.scrollTo(0, 0)}
@@ -124,7 +123,7 @@ const Card = () => {
                   alt="Share"
                   width={24}
                   height={24}
-                  style={{ marginTop: "16px" }}
+                  style={{ marginTop: '20px' }}
                 />
               </a>
             </div>
@@ -140,7 +139,7 @@ const Card = () => {
             {club?.distance && (
               <div className={styles.card__header_info_transit}>
                 <p className={styles.card__header_info_transit_distance}>
-                  {club?.distance ? `${club?.distance} ` : "5.2"} км от вашего
+                  {club?.distance ? `${club?.distance} ` : '5.2'} км от вашего
                   адреса
                   {/* {userDistance !== null
                  ? `${(userDistance / 1000).toFixed(1)} км от вашего адреса`
@@ -180,7 +179,7 @@ const Card = () => {
                 `${
                   club?.phoneNumbers.find(
                     (phoneNumber: { priority: number }) =>
-                      phoneNumber.priority === 10
+                      phoneNumber.priority === 10,
                   )?.phoneNumber
                 }`
               ) : (
@@ -203,14 +202,14 @@ const Card = () => {
         </div>
         <ul className={styles.card__list}>
           {club?.socials.map((social: { type: string; url: string }) =>
-            social.type.toLowerCase().includes("google") ||
-            social.type.toLowerCase().includes("website") ||
-            social.type.toLowerCase().includes("vk") ||
-            social.type.toLowerCase().includes("youtube") ||
-            social.type.toLowerCase().includes("whatsapp") ||
-            social.type.toLowerCase().includes("telegram") ? (
+            social.type.toLowerCase().includes('google') ||
+            social.type.toLowerCase().includes('website') ||
+            social.type.toLowerCase().includes('vk') ||
+            social.type.toLowerCase().includes('youtube') ||
+            social.type.toLowerCase().includes('whatsapp') ||
+            social.type.toLowerCase().includes('telegram') ? (
               <SocialListItem social={social} club={club} key={social.type} />
-            ) : null
+            ) : null,
           )}
         </ul>
 
@@ -247,7 +246,16 @@ const Card = () => {
                   </p>
                   <div>
                     <p className={styles.card__block_items_item_text}>
-                      {club?.businessHours.formattedSchedule}
+                      {club?.businessHours.formattedSchedule
+                        .split(';')
+                        .map((item: string, index: Key) => (
+                          <p
+                            key={index}
+                            className={styles.card__block_items_item_text}
+                          >
+                            {item}
+                          </p>
+                        ))}
                     </p>
                   </div>
                 </>
@@ -319,11 +327,11 @@ const Card = () => {
                 <div className={styles.card__block_items_item}>
                   {club?.membershipPlans.map(
                     (membershipPlan: {
-                      id: number;
-                      sessionsPerWeek: number;
-                      sessionDurationMin: number;
-                      sessionsPerMonth: number;
-                      subscriptionCostRub: number;
+                      id: number
+                      sessionsPerWeek: number
+                      sessionDurationMin: number
+                      sessionsPerMonth: number
+                      subscriptionCostRub: number
                     }) => (
                       <div
                         className={styles.card__block_items_item_listCenter}
@@ -331,7 +339,7 @@ const Card = () => {
                       >
                         {membershipPlan.sessionsPerWeek > 0 && (
                           <p className={styles.card__block_items_item_title}>
-                            {getWordForm(membershipPlan.sessionsPerWeek, "раз")}{" "}
+                            {getWordForm(membershipPlan.sessionsPerWeek, 'раз')}{' '}
                             в неделю ({membershipPlan.sessionDurationMin} мин)
                           </p>
                         )}
@@ -339,8 +347,8 @@ const Card = () => {
                           <p className={styles.card__block_items_item_title}>
                             {getWordForm(
                               membershipPlan.sessionsPerMonth,
-                              "раз"
-                            )}{" "}
+                              'раз',
+                            )}{' '}
                             в месяц
                           </p>
                         )}
@@ -349,7 +357,7 @@ const Card = () => {
                           {membershipPlan.subscriptionCostRub} ₽
                         </p>
                       </div>
-                    )
+                    ),
                   )}
 
                   <div className={styles.card__block_items_item_listCenter}>
@@ -362,7 +370,7 @@ const Card = () => {
                         className={
                           isOpenSeasonTicket
                             ? `${styles.card__block_items_item_button_img}`
-                            : ""
+                            : ''
                         }
                         src="/svg/button-down.svg"
                         alt="down"
@@ -415,7 +423,7 @@ const Card = () => {
               <div className={styles.card__block_items_item_listCenter}>
                 <p className={styles.card__block_items_item_title}>
                   {/* Занятия для детей от 3 до 17 лет */}
-                  Занятия для детей от {club?.primaryActivity.ageMin} до{" "}
+                  Занятия для детей от {club?.primaryActivity.ageMin} до{' '}
                   {club?.primaryActivity.ageMax} лет
                 </p>
               </div>
@@ -753,7 +761,7 @@ const Card = () => {
                   Показать на карте
                 </button>
               </div>
-              <div style={{ marginTop: "20px" }}>
+              <div style={{ marginTop: '20px' }}>
                 {isOpenMap && <MapForCard club={club} />}
               </div>
               <button
@@ -768,7 +776,7 @@ const Card = () => {
                   `${
                     club?.phoneNumbers.find(
                       (phoneNumber: { priority: number }) =>
-                        phoneNumber.priority === 10
+                        phoneNumber.priority === 10,
                     )?.phoneNumber
                   }`
                 ) : (
@@ -785,18 +793,18 @@ const Card = () => {
               </button>
               <ul className={styles.card__list}>
                 {club?.socials.map((social: { type: string; url: string }) =>
-                  social.type.toLowerCase().includes("google") ||
-                  social.type.toLowerCase().includes("website") ||
-                  social.type.toLowerCase().includes("vk") ||
-                  social.type.toLowerCase().includes("youtube") ||
-                  social.type.toLowerCase().includes("whatsapp") ||
-                  social.type.toLowerCase().includes("telegram") ? (
+                  social.type.toLowerCase().includes('google') ||
+                  social.type.toLowerCase().includes('website') ||
+                  social.type.toLowerCase().includes('vk') ||
+                  social.type.toLowerCase().includes('youtube') ||
+                  social.type.toLowerCase().includes('whatsapp') ||
+                  social.type.toLowerCase().includes('telegram') ? (
                     <SocialListItem
                       social={social}
                       club={club}
                       key={social.type}
                     />
-                  ) : null
+                  ) : null,
                 )}
               </ul>
             </div>
@@ -846,11 +854,10 @@ const Card = () => {
         </article>
       </section>
       <aside className={styles.card__aside}>
-        <p className={styles.card__aside_owner}>Вы владелец?</p>
         <div className={styles.card__aside_info}>
-          Бесплатное пробное занятие и скидки в Секция 1. 12 залов в СПб.
-          Игровая форма проведения занятий. Тренеры – профессионалы высокого
-          уровня. Укрепление здоровья детей, подготовка к спортивным секциям.
+          <p className={styles.card__aside_owner}>Вы владелец?</p>
+          Раздел для публикации акций от зарегистрированных секций. Здесь может
+          быть ваша реклама.
         </div>
         <div className={styles.card__aside_block}>
           <img src="/images/aside-block-01.jpg" alt="01" width={304} />
@@ -863,7 +870,7 @@ const Card = () => {
         </div>
       </aside>
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

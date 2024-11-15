@@ -1,30 +1,30 @@
-import styles from "./List.module.scss";
-import type { List } from "../../../Types/types";
-import { CATEGORY_SPORTS } from "../../../mocks";
-import { useState } from "react";
+import styles from './List.module.scss'
+import type { List } from '../../../Types/types'
+import { CATEGORY_SPORTS } from '../../../mocks'
+import { useState } from 'react'
 
 const List = ({ searchValue }: { searchValue: string }) => {
   // console.log(searchValue);
-  const [showList, setShowList] = useState<Record<string, boolean>>({});
+  const [showList, setShowList] = useState<Record<string, boolean>>({})
 
   const handleMoreItems = (item: { id: string }) => {
     setShowList((prevShowList) => ({
       ...prevShowList,
       [item.id]: !prevShowList[item.id],
-    }));
-  };
+    }))
+  }
 
   const handleTargetItem = (item: { subtitle: string }) => {
-    console.log(item?.subtitle);
-  };
+    console.log(item?.subtitle)
+  }
 
   const renderItems = () => {
     const filteredItems = CATEGORY_SPORTS.filter((item) =>
       // item.list?.map((sport) => {
       //   sport.subtitle.toLowerCase().includes(searchValue.toLowerCase());
       // }) ||
-      item.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
+      item.title.toLowerCase().includes(searchValue.toLowerCase()),
+    )
 
     return (
       <ul className={styles.list}>
@@ -37,7 +37,7 @@ const List = ({ searchValue }: { searchValue: string }) => {
                 type="button"
                 onClick={() => handleMoreItems(item)}
               >
-                {showList[item.id] ? "<" : ">"}
+                {showList[item.id] ? '<' : '>'}
               </button>
             )}
             {showList[item.id] && (
@@ -56,14 +56,14 @@ const List = ({ searchValue }: { searchValue: string }) => {
           </li>
         ))}
       </ul>
-    );
-  };
+    )
+  }
 
   return (
     <>
       <div>{renderItems()}</div>
     </>
-  );
-};
+  )
+}
 
-export default List;
+export default List

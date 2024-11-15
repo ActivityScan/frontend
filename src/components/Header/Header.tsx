@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
-import styles from "./Header.module.scss";
-import Logo from "../Logo/Logo";
+import styles from './Header.module.scss'
+import Logo from '../Logo/Logo'
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.header__left}>
-        < Logo />
+        <Logo />
         {/* <Link to="/">
           <img src="/svg/Logo2.svg" alt="logo" width={197} height={49} />
         </Link> */}
@@ -27,7 +27,7 @@ const Header = () => {
         </button>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

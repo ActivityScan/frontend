@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import styles from "./Footer.module.scss";
+import { Link } from 'react-router-dom'
+import styles from './Footer.module.scss'
 
 const Footer = () => {
   return (
-    <footer className={styles.footer} id='footer'>
+    <footer className={styles.footer} id="footer">
       <div className={styles.footer__info}>
         <p className={styles.footer__info_title}>(c) 2024 ООО “СпортСкан”</p>
         <p className={styles.footer__info_text}>
-          Все права защищены. Использование материалов с нашего сайта возможно{" "}
+          Все права защищены. Использование материалов с нашего сайта возможно{' '}
           <br />
           только с указанием ссылки на принадлежность к нашему сайту
         </p>
@@ -30,7 +30,7 @@ const Footer = () => {
         </Link>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

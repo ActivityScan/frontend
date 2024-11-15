@@ -1,22 +1,22 @@
-import styles from "./SocialListItem.module.scss";
+import styles from './SocialListItem.module.scss'
 
 interface SocialListItemProps {
   social: {
-    type: string;
-  };
+    type: string
+  }
   club: {
     socials: {
-      type: string;
-      url: string;
-    }[];
-  };
+      type: string
+      url: string
+    }[]
+  }
 }
 
 const SocialListItem = ({ social, club }: SocialListItemProps) => {
   const url = club?.socials.find(
     (socialItem: { type: string }) =>
-      socialItem.type.toLowerCase() === social.type
-  )?.url;
+      socialItem.type.toLowerCase() === social.type,
+  )?.url
 
   return (
     <li className={styles.card__list_item}>
@@ -27,12 +27,12 @@ const SocialListItem = ({ social, club }: SocialListItemProps) => {
         height={32}
         onClick={() => {
           if (url) {
-            window.open(url, "_blank");
+            window.open(url, '_blank')
           }
         }}
       />
     </li>
-  );
-};
+  )
+}
 
-export default SocialListItem;
+export default SocialListItem

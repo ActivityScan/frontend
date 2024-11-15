@@ -3,7 +3,7 @@ const AboutUs = () => {
     <>
       <h1>О нас</h1>
     </>
-  );
-};
+  )
+}
 
-export default AboutUs;
+export default AboutUs

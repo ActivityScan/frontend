@@ -1,14 +1,9 @@
-@import "@/styles/_colors.scss";
+@import '@/styles/_colors.scss';
 .menu,
 .submenu {
   list-style: none;
   padding: 0;
   margin: 0;
-  // max-height: 300px; /* Установите нужную высоту для списка */
-  // overflow-y: auto;
-  // direction: rtl;
-  // scrollbar-width: thin;
-  // scrollbar-color: $dark-blue-button #f1f1f1;
   cursor: pointer;
   scrollbar-color: $dark-blue-button #f1f1f1;
   scrollbar-width: thin;
@@ -28,39 +23,7 @@
   position: relative;
   width: auto;
   max-height: 300px;
-  // list-style: none;
-  // padding: 0;
-  // margin: 0;
-  // max-height: 300px; /* Установите нужную высоту для списка */
-  // overflow-y: auto;
-  // direction: rtl;
-  // // scrollbar-width: thin;
-  // scrollbar-color: #777575 #f1f1f1;
-  // cursor: pointer;
-  // position: absolute;
-  // top: 100%;
-  // left: 0;
-  // width: 100%;
-  // background: $bright-yellow;
-  // border: 1px solid #ccc;
-  // border-radius: 4px;
-  // z-index: 1000;
-  // display: none;
 
-  // &.open {
-  //   display: block;
-  // }
-
-  // &__menu {
-  //   list-style: none;
-  //   padding: 0;
-  //   margin: 0;
-  //   max-height: 300px; /* Установите нужную высоту для списка */
-  //   overflow-y: auto;
-  //   direction: rtl;
-  //   // scrollbar-width: thin;
-  //   scrollbar-color: #777575 #f1f1f1;
-  // }
   &__item,
   &__subitem {
     padding: 5px;
@@ -112,7 +75,7 @@
   width: fit-content;
   // width: 371px;
   position: absolute;
-  left: 406px;; /* Подменю будет справа от основного меню */
+  left: 406px; /* Подменю будет справа от основного меню */
   top: 123.7px;
   padding: 16px 20px 0px 20px;
   // cursor: pointer;
@@ -131,6 +94,7 @@
 
 .selected {
   font-weight: bold;
+  background-color: var(--hover);
 }
 
 .checkbox {
@@ -148,11 +112,11 @@
 }
 /* Добавляем галочку */
 .checkbox:checked:before {
-  content: ""; /* Оставляем пустым для изображения */
+  content: ''; /* Оставляем пустым для изображения */
   position: absolute; /* Позиционирование по отношению к родителю */
   width: 24px; /* Ширина иконки */
   height: 24px; /* Высота иконки */
-  background-image: url("@/assets/check.svg"); /* Путь к иконке */
+  background-image: url('@/assets/check.svg'); /* Путь к иконке */
   background-size: contain; /* Масштабирование иконки */
   background-repeat: no-repeat; /* Запрет повторения иконки */
 }
@@ -163,7 +127,6 @@
 }
 
 .hovered {
-  text-decoration: line-through; // Зачеркивание
-  opacity: 0.6; // Уменьшенная непрозрачность (опционально)
-  cursor: pointer;
+  background-color: var(--hover);
+  font-weight: 600;
 }
