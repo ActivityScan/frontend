@@ -17,7 +17,7 @@
 //     "noUnusedLocals": true,
 //     "noUnusedParameters": true,
 //     "noFallthroughCasesInSwitch": true,
-    
+
 //     // "composite": true,
 //     // /* Aliases */
 //     // "baseUrl": ".",
@@ -27,7 +27,6 @@
 //   },
 //   "include": ["vite.config.ts"]
 // }
-
 
 {
   "compilerOptions": {
