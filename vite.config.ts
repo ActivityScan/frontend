@@ -28,6 +28,24 @@ export default defineConfig({
           // rewrite: (path) => path.replace(/^\/clubs/, ''),
         },
       },
+      '/geocoder': {
+        target: 'http://62.113.111.95:2322',
+        changeOrigin: true,
+        configure: (proxy, options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            proxyReq.setHeader('Origin', 'http://62.113.111.95:2322')
+          })
+          proxy.on('proxyRes', (proxyRes, req, res) => {
+            proxyRes.headers['Access-Control-Allow-Origin'] = '*'
+            proxyRes.headers['Access-Control-Allow-Methods'] =
+              'GET,PUT,POST,DELETE,OPTIONS'
+            proxyRes.headers['Access-Control-Allow-Headers'] =
+              'Content-Type, Authorization'
+          })
+          // secure: false,
+          // rewrite: (path) => path.replace(/^\/clubs/, ''),
+        },
+      },
     },
   },
 
